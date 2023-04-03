@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@color/teal_700"
     tools:context=".CadastroConcluido">
 
     <TextView
@@ -14,7 +15,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:text="Cadastro Concluído!"
-        android:textColor="@color/black"
+
+        android:textColor="@color/white"
         android:textSize="30sp" />
 
 
