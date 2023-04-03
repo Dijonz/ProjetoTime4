@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     }
             } else {
 
-                val snack = Snackbar.make(findViewById(android.R.id.content), "Olá, Snackbar!", Snackbar.LENGTH_SHORT)
+                val snack = Snackbar.make(findViewById(android.R.id.content), "PREENCHA TODOS OS CAMPOS!", Snackbar.LENGTH_SHORT)
                 snack.setBackgroundTint(Color.RED)
                 snack.setTextColor(Color.WHITE)
                 snack.show()
