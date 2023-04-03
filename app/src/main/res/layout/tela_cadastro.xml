@@ -112,7 +112,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etSenha"
         android:layout_below="@id/tvSenha"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:inputType="textPassword"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="350dp"
