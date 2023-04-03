@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="403.27dp"
+        android:layout_height="44.81dp"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/tvHeadlineDados"
+        android:textSize="32.59sp"
+        android:text="@string/insira_seus_dados_aqui"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="181dp"
+        android:layout_height="26dp"
+        android:layout_alignStart="@+id/etNome_completo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="130dp"
+        android:id="@+id/tvNome_completo"
+        android:textSize="19sp"
+        android:text="Nome Completo"
+        android:layout_below="@+id/tvHeadlineDados"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etNome_completo"
+        android:layout_below="@id/tvNome_completo"
+        android:layout_centerHorizontal="true" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="92dp"
+        android:layout_height="26dp"
+        android:id="@+id/tvTelefone"
+        android:textSize="19sp"
+        android:layout_alignStart="@+id/etTelefone"
+        android:layout_below="@+id/etNome_completo"
+        android:text="Telefone"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etTelefone"
+        android:layout_below="@+id/tvTelefone"
+        android:layout_centerHorizontal="true"
+        android:inputType="number" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEndereco"
+        android:textSize="19sp"
+        android:layout_below="@+id/etTelefone"
+        android:text="Endereço do consultório"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/etEndereco"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etEndereco"
+        android:layout_below="@+id/tvEndereco"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEmail"
+        android:textSize="19sp"
+        android:layout_below="@+id/etEndereco"
+        android:text="E-mail"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/etEmail"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etEmail"
+        android:layout_below="@+id/tvEmail"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSenha"
+        android:textSize="19sp"
+        android:text="Senha"
+        android:layout_below="@+id/etEmail"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/etSenha"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSenha"
+        android:layout_below="@id/tvSenha"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="350dp"
+        android:layout_height="130dp"
+        android:textSize="18sp"
+        android:id="@+id/etMiniCurriculo"
+        android:layout_below="@id/etSenha"
+        android:layout_centerHorizontal="true"
+        android:maxLength="200"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:gravity="top"
+        android:hint="Mini-Currículo"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btCadastrar"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:textSize="19sp"
+        android:layout_below="@id/etMiniCurriculo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Cadastrar"
+        android:fontFamily="@font/montserrat"/>
+
+</RelativeLayout>
