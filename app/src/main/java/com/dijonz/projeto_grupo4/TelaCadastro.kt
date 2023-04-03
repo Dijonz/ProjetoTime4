@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             db.collection("dentistas")
                 .add(dentista)
                 .addOnSuccessListener {
-                        Toast.makeText(this,"Cadastro Realizado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Cadastro Realizado", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener {
+                .addOnFailureListener {
                         Toast.makeText(this,"ERRO", Toast.LENGTH_SHORT).show()
                     }
         }
