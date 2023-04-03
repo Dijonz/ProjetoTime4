@@ -1,11 +1,15 @@
 package com.dijonz.projeto_grupo4
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dijonz.projeto_grupo4.databinding.TelaCadastroBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -21,6 +25,8 @@ class MainActivity : AppCompatActivity() {
             return true
         }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +58,15 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "ERRO", Toast.LENGTH_SHORT).show()
                     }
             } else {
-                Toast.makeText(this, "preencha todos os campos", Toast.LENGTH_LONG).show()
+
+                val snack = Snackbar.make(findViewById(android.R.id.content), "Olá, Snackbar!", Snackbar.LENGTH_SHORT)
+                snack.setBackgroundTint(Color.RED)
+                snack.setTextColor(Color.WHITE)
+                snack.show()
+
+
+
+
             }
         }
     }
