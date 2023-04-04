@@ -32,6 +32,7 @@
         android:text="Nome Completo"
         android:layout_below="@+id/tvHeadlineDados"
         android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -53,6 +54,7 @@
         android:text="Telefone"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -74,7 +76,8 @@
         android:text="Endereço do consultório"
         android:layout_marginTop="10dp"
         android:layout_alignStart="@+id/etEndereco"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="291.93dp"
@@ -103,7 +106,8 @@
         android:textColor="@color/white"
         android:backgroundTint="@color/white"
         android:layout_below="@+id/tvEmail"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -124,7 +128,7 @@
         android:backgroundTint="@color/white"
         android:layout_below="@id/tvSenha"
         android:layout_centerHorizontal="true"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="350dp"
@@ -132,16 +136,18 @@
         android:textSize="18sp"
         android:id="@+id/etMiniCurriculo"
         android:layout_below="@id/etSenha"
-        android:textColor="@color/white"
+        android:textColor="@color/cinza"
         android:backgroundTint="@color/white"
         android:layout_centerHorizontal="true"
         android:maxLength="200"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="23dp"
         android:inputType="textMultiLine"
         android:lines="6"
         android:gravity="top"
-        android:hint="Mini-Currículo"
-        android:textColorHint="@color/white"
+        android:hint="  Mini-Currículo"
+        android:textColorHint="@color/cinza"
+        android:fontFamily="@font/montserrat"
+        android:background="@color/white"
         />
 
     <androidx.appcompat.widget.AppCompatButton
