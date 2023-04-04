@@ -55,6 +55,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
+        android:maxLength="11"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -65,7 +66,8 @@
         android:backgroundTint="@color/white"
         android:layout_below="@+id/tvTelefone"
         android:layout_centerHorizontal="true"
-        android:inputType="number" />
+        android:inputType="phone"
+        android:maxLength="9"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
