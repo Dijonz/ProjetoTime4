@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToOutline="true"
+    android:background="@color/teal_700"
+    tools:context=".LoginActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="349dp"
+        android:layout_height="39dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="106dp"
+        android:textColor="@color/white"
+        android:text="Já tem uma conta?"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:id="@+id/tvTitulo"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="69dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="81.1dp"
+        android:textSize="21.73sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="261dp"
+        android:textColor="@color/white"
+        android:text="Email:"
+        android:id="@+id/tvEmail"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="81dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="297.38dp"
+        android:id="@+id/etEmail"
+        android:inputType="textEmailAddress"
+        android:layout_width="291.93dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="76dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="81dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="381dp"
+        android:text="Senha:"
+        android:textSize="21.73sp"
+        android:textColor="@color/white"
+        android:id="@+id/tvSenha"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="81dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="415dp"
+        android:layout_width="291.93dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/etSenha"
+        android:inputType="textPassword"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="180.59dp"
+        android:layout_height="52.95dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="144dp"
+        android:layout_alignParentTop="true"
+        android:text="Cadastrar"
+        android:layout_marginTop="517dp"
+        android:id="@+id/bConfirmLogin"
+        />
+
+</RelativeLayout>
