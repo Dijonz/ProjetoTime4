@@ -11,7 +11,6 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="349dp"
         android:layout_height="39dp"
-
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="106dp"
@@ -20,25 +19,25 @@
         android:textAlignment="center"
         android:textSize="32sp"
         android:id="@+id/tvTitulo"
+        android:fontFamily="@font/montserrat"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="69dp"
         android:layout_height="29dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="81.1dp"
+        android:layout_centerHorizontal="true"
         android:textSize="21.73sp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="261dp"
         android:textColor="@color/white"
         android:text="Email:"
         android:id="@+id/tvEmail"
+        android:fontFamily="@font/montserrat"
+        android:layout_alignLeft="@+id/etEmail"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="81dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="297.38dp"
         android:id="@+id/etEmail"
@@ -52,21 +51,18 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="76dp"
         android:layout_height="29dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="81dp"
+        android:layout_alignLeft="@+id/etEmail"
         android:layout_alignParentTop="true"
         android:layout_marginTop="381dp"
         android:text="Senha:"
         android:textSize="21.73sp"
         android:textColor="@color/white"
         android:id="@+id/tvSenha"
-
+        android:fontFamily="@font/montserrat"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="81dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="415dp"
         android:layout_width="291.93dp"
@@ -79,12 +75,27 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="180.59dp"
         android:layout_height="52.95dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="144dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:text="Cadastrar"
         android:layout_marginTop="517dp"
         android:id="@+id/bConfirmLogin"
+        android:fontFamily="@font/montserrat"
+        android:backgroundTint="@color/white"
         />
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Caso não tenha uma conta:\nCadastre-se aqui"
+        android:textAlignment="center"
+        android:layout_below="@+id/bConfirmLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="112dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/tvSemConta"
+        android:textSize="21.76sp"/>
+
 
 </RelativeLayout>
