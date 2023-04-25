@@ -77,7 +77,7 @@
         android:layout_height="52.95dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="Cadastrar"
+        android:text="LOGIN"
         android:layout_marginTop="517dp"
         android:id="@+id/bConfirmLogin"
         android:fontFamily="@font/montserrat"

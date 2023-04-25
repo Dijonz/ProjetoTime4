@@ -25,13 +25,18 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(binding.etEmail.text.toString(), binding.etSenha.text.toString()).addOnCompleteListener {login ->
 
                 if (login.isSuccessful){
-                    val intent =  Intent(this, MainActivity2::class.java)
+                    val intent =  Intent(this, CadastroConcluido::class.java)
                     startActivity(intent)
                 }
 
             }
 
         }}
+
+        binding.tvSemConta.setOnClickListener{
+            val intent = Intent(this, TelaCadastro::class.java)
+            startActivity(intent)
+        }
 
 
     }

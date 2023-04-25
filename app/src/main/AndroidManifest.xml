@@ -15,13 +15,13 @@
         android:theme="@style/Theme.ProjetoGrupo4"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".TelaCadastro"
             android:exported="false" />
         <activity
             android:name=".CadastroConcluido"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

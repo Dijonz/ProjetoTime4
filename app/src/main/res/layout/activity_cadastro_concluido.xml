@@ -1,22 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@color/teal_700"
     tools:context=".CadastroConcluido">
 
-    <TextView
-        android:id="@+id/tvCadastroConcluido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="Cadastro Concluído!"
-        android:textColor="@color/white"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFundo"
+        android:layout_width="488.85dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="135dp"
+        android:background="@color/teal_700"
         android:textSize="30sp" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNome"
+        android:layout_width="180.7dp"
+        android:layout_height="29.87dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@id/ivFundo"
+        android:layout_marginLeft="19.01dp"
+        android:layout_marginTop="-110dp"
+        android:textSize="20.37sp" />
+    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="135.78dp"
+        android:layout_height="135.78dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="62dp"
+        android:src="@drawable/photop"/>
+    
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="93.69dp"
+        android:layout_height="93.69dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="99.12dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="260.5dp"
+        android:background="@color/teal_700"/>
 
-</LinearLayout>
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="93.69dp"
+        android:layout_height="93.69dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="99.12dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="410.5dp"
+        android:id="@+id/bStatus"
+        android:src="@drawable/status"
+        android:background="@color/teal_700"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="93.69dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bStatus"
+        android:text="Status"
+        android:layout_alignLeft="@id/bStatus"
+        android:textAlignment="center"
+        android:fontFamily="@font/montserrat"
+        android:textSize="16.69dp"
+        />
+
+
+
+
+
+</RelativeLayout>
