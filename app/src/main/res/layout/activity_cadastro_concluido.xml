@@ -8,24 +8,15 @@
     android:orientation="vertical"
     tools:context=".CadastroConcluido">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivFundo"
-        android:layout_width="488.85dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="135dp"
-        android:background="@color/teal_700"
-        android:textSize="30sp" />
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvNome"
         android:layout_width="180.7dp"
         android:layout_height="29.87dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/montserrat"
-        android:layout_below="@id/ivFundo"
-        android:layout_marginLeft="19.01dp"
-        android:layout_marginTop="-110dp"
-        android:textSize="20.37sp" />
+        android:layout_below="@+id/ivProfile"
+        android:textSize="20.37sp"
+        android:layout_centerHorizontal="true"/>
     
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="135.78dp"
@@ -33,7 +24,8 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="62dp"
-        android:src="@drawable/photop"/>
+        android:src="@drawable/photop"
+        android:id="@+id/ivProfile"/>
     
     <androidx.appcompat.widget.AppCompatImageButton
         android:layout_width="93.69dp"

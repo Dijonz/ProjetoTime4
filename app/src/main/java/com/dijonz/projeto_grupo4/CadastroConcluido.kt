@@ -35,7 +35,7 @@ class CadastroConcluido : AppCompatActivity() {
 
                 for (document in result) {
 
-                    binding.tvNome.text = "Bem vindo," + document.data["name"].toString() + "!"
+                    binding.tvNome.text = document.data["name"].toString()
 
 
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
