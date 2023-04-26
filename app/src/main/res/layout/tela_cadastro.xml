@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/teal_700"
-    tools:context=".MainActivity">
+    tools:context=".TelaCadastro">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="403.27dp"
@@ -94,7 +94,8 @@
         android:text="E-mail"
         android:layout_marginTop="10dp"
         android:layout_alignStart="@+id/etEmail"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="291.93dp"
@@ -114,7 +115,8 @@
         android:layout_below="@+id/etEmail"
         android:layout_marginTop="10dp"
         android:layout_alignStart="@+id/etSenha"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="291.93dp"
