@@ -20,29 +20,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 
 class TelaCadastro : AppCompatActivity() {
-
     private val db = Firebase.firestore
-
     private lateinit var binding: TelaCadastroBinding
-
     private lateinit var functions: FirebaseFunctions
-
     private val auth = FirebaseAuth.getInstance()
-
     private val gson = GsonBuilder().enableComplexMapKeySerialization().create()
-
-    var x:Int =0
-
+    private var x:Int =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = TelaCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         functions = Firebase.functions("southamerica-east1")
-
         binding.btCadastrar.setOnClickListener {
-
             if(emptyVerifier(binding.etNomeCompleto, binding.etTelefone, binding.etEmail, binding.etSenha, binding.etEndereco, binding.etMiniCurriculo)) {
 
                 val us = user(
@@ -51,18 +41,14 @@ class TelaCadastro : AppCompatActivity() {
                     binding.etMiniCurriculo.text.toString()
                 )
 
-
                 auth.createUserWithEmailAndPassword(
                     binding.etEmail.text.toString(),
                     binding.etSenha.text.toString()
                 ).addOnCompleteListener { usuarioA ->
-
-
                     if (usuarioA.isSuccessful) {
                             cadastrarUsuario(us,binding.etEmail.text.toString() )
                         x += 1
                     }
-
                 }.addOnFailureListener { exception ->
                     val MensagemErro = when (exception) {
                         is FirebaseAuthInvalidCredentialsException -> "Digite um email válido"
@@ -84,13 +70,7 @@ class TelaCadastro : AppCompatActivity() {
                 snack.setTextColor(Color.WHITE)
                 snack.show()
             }
-
     }
-
-
-
-
-
     }
     private fun emptyVerifier(nome: EditText, numero: EditText, email: EditText, senha: EditText, endereco: EditText, curriculo: EditText): Boolean{
         return !(TextUtils.isEmpty(nome.text) || TextUtils.isEmpty(numero.text) ||TextUtils.isEmpty(email.text) ||
@@ -105,9 +85,7 @@ class TelaCadastro : AppCompatActivity() {
             "curriculo" to p.curriculo,
             "status" to false
         )
-
         db.collection("users").document(id).set(data)
-
     }
 
     //private fun cadastrarUsuario(p: user,id: String): Task<String> {
@@ -127,8 +105,7 @@ class TelaCadastro : AppCompatActivity() {
     //            res
     //        }
     //}
-
-    }
+}
 
 
 

@@ -11,26 +11,18 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class CadastroConcluido : AppCompatActivity() {
-
     private lateinit var binding: ActivityCadastroConcluidoBinding
-
     private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-
         definirNome(useriD)
 
         binding.bStatus.setOnClickListener {
-
             if(verificaStatus(useriD)) {
-
-
                 if (useriD != null) {
                     db.collection("user")
                         .document(useriD)
@@ -46,52 +38,34 @@ class CadastroConcluido : AppCompatActivity() {
         }
     }
 
-
     private fun verificaStatus(id: String): Boolean{
         var x = 1
         db.collection("user")
             .whereEqualTo("email", id)
             .get()
             .addOnSuccessListener { result ->
-
                 for (document in result) {
-
-                    if(document.data["status"]==true){
-                        x = 1
+                    x = if(document.data["status"]==true){
+                        1
                     } else{
-                        x = 2
+                        2
                     }
-
-
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-
                 }
             }
-        if (x==1){
-            return true
-        } else{
-            return false
-        }
+        return x==1
     }
 
     private fun definirNome(id: String) {
-
-        binding.tvNome!!.text = ""
-
+        binding.tvNome.text = ""
         db.collection("user")
             .whereEqualTo("email", id)
             .get()
             .addOnSuccessListener { result ->
-
                 for (document in result) {
-
                     binding.tvNome.text = document.data["name"].toString()
-
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-
                 }
             }
     }
-
-
 }
