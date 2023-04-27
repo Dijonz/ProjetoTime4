@@ -21,27 +21,10 @@ class CadastroConcluido : AppCompatActivity() {
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
 
-        db.collection("user")
-            .whereEqualTo("email", useriD)
-            .get()
-            .addOnSuccessListener { result ->
-
-                for (document in result) {
-
-                    binding.tvNome.text = document.data["name"].toString()
-
-
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-
-                }
-            }
+        definirNome(useriD)
 
         binding.bStatus.setOnClickListener {
 
@@ -60,13 +43,9 @@ class CadastroConcluido : AppCompatActivity() {
                         .update("status", true)
                 }
             }
-            }
-
-
-
-
-
+        }
     }
+
 
     private fun verificaStatus(id: String): Boolean{
         var x = 1
@@ -93,6 +72,25 @@ class CadastroConcluido : AppCompatActivity() {
         } else{
             return false
         }
+    }
+
+    private fun definirNome(id: String) {
+
+        binding.tvNome!!.text = ""
+
+        db.collection("user")
+            .whereEqualTo("email", id)
+            .get()
+            .addOnSuccessListener { result ->
+
+                for (document in result) {
+
+                    binding.tvNome.text = document.data["name"].toString()
+
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+
+                }
+            }
     }
 
 
