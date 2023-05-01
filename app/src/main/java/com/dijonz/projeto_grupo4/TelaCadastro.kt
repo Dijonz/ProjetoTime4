@@ -76,19 +76,7 @@ class TelaCadastro : AppCompatActivity() {
         return !(TextUtils.isEmpty(nome.text) || TextUtils.isEmpty(numero.text) ||TextUtils.isEmpty(email.text) ||
                 TextUtils.isEmpty(senha.text) || TextUtils.isEmpty(endereco.text) || TextUtils.isEmpty(curriculo.text))
     }
-    private fun cadastrarUsuario(p: user,id: String) {
-        val data = hashMapOf(
-            "name" to p.name,
-            "number" to p.number,
-            "email" to p.email,
-            "endereco" to p.endereco,
-            "curriculo" to p.curriculo,
-            "status" to false
-        )
-        db.collection("users").document(id).set(data)
-    }
-
-    //private fun cadastrarUsuario(p: user,id: String): Task<String> {
+    //private fun cadastrarUsuario(p: user,id: String) {
     //    val data = hashMapOf(
     //        "name" to p.name,
     //        "number" to p.number,
@@ -97,14 +85,26 @@ class TelaCadastro : AppCompatActivity() {
     //        "curriculo" to p.curriculo,
     //        "status" to false
     //    )
-    //    return functions
-    //        .getHttpsCallable("addUser")
-    //        .call(data)
-    //        .continueWith { task ->
-    //            val res = gson.toJson(task.result?.data)
-    //            res
-    //        }
+    //    db.collection("users").document(id).set(data)
     //}
+
+    private fun cadastrarUsuario(p: user,id: String): Task<String> {
+        val data = hashMapOf(
+            "nome" to p.name,
+            "email" to p.email,
+            "numero" to p.number,
+            "curriculo" to p.curriculo,
+            "endereco" to p.endereco,
+            "status" to false
+       )
+        return functions
+            .getHttpsCallable("setUser")
+            .call(data)
+           .continueWith { task ->
+                val res = gson.toJson(task.result?.data)
+                res
+            }
+    }
 }
 
 

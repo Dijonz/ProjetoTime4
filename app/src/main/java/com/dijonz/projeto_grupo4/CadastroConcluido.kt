@@ -16,22 +16,21 @@ class CadastroConcluido : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
         definirNome(useriD)
 
         binding.bStatus.setOnClickListener {
             if(verificaStatus(useriD)) {
                 if (useriD != null) {
-                    db.collection("user")
-                        .document(useriD)
+                    db.collection("users")
+                        .document(returnId(useriD))
                         .update("status", false)
                 }
             } else{
                 if (useriD != null) {
-                    db.collection("user")
-                        .document(useriD)
+                    db.collection("users")
+                        .document(returnId(useriD))
                         .update("status", true)
                 }
             }
@@ -40,7 +39,7 @@ class CadastroConcluido : AppCompatActivity() {
 
     private fun verificaStatus(id: String): Boolean{
         var x = 1
-        db.collection("user")
+        db.collection("users")
             .whereEqualTo("email", id)
             .get()
             .addOnSuccessListener { result ->
@@ -58,7 +57,7 @@ class CadastroConcluido : AppCompatActivity() {
 
     private fun definirNome(id: String) {
         binding.tvNome.text = ""
-        db.collection("user")
+        db.collection("users")
             .whereEqualTo("email", id)
             .get()
             .addOnSuccessListener { result ->
@@ -67,5 +66,20 @@ class CadastroConcluido : AppCompatActivity() {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
+    }
+
+    private fun returnId(aid: String): String {
+        var id: String = ""
+        db.collection("users")
+            .whereEqualTo("email",aid)
+            .get()
+            .addOnSuccessListener {result ->
+                for (document in result) {
+                    id = document.id.toString()
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                }
+            }
+        return id
+
     }
 }
