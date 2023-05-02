@@ -2,10 +2,12 @@ package com.dijonz.projeto_grupo4
 
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -22,22 +24,31 @@ class CadastroConcluido : AppCompatActivity() {
         override fun onStart() {
             super.onStart()
 
-            val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-            definirNome(useriD)
+            val userEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+            definirNome(userEmail)
+
+            val idDocumento = returnId(userEmail)
 
             binding.bStatus.setOnClickListener {
-                if (verificaStatus(useriD)) {
-                    if (useriD != null) {
-                        db.collection("users")
-                            .document(returnId(useriD))
-                            .update("status", false)
-                    }
+                if (verificaStatus(userEmail)) {
+                    db.collection("users")
+                        .document(idDocumento)
+                        .update("status", false).addOnSuccessListener {
+                            val snack2 = Snackbar.make((binding.root),"STATUS: INDISPONÍVEL",Snackbar.LENGTH_SHORT)
+                            snack2.setBackgroundTint(Color.GREEN)
+                            snack2.setTextColor(Color.WHITE)
+                            snack2.show()
+                        }
                 } else {
-                    if (useriD != null) {
-                        db.collection("users")
-                            .document(returnId(useriD))
-                            .update("status", true)
-                    }
+                    db.collection("users")
+                        .document(idDocumento)
+                        .update("status", true).addOnSuccessListener {
+                            val snack1 = Snackbar.make((binding.root),"STATUS: DISPONÍVEL", Snackbar.LENGTH_SHORT)
+                            snack1.setBackgroundTint(Color.GREEN)
+                            snack1.setTextColor(Color.WHITE)
+                            snack1.show()
+                        }
+
                 }
             }
         }
@@ -45,7 +56,7 @@ class CadastroConcluido : AppCompatActivity() {
 
 
     private fun verificaStatus(id: String): Boolean {
-        var x = 1
+        var x = 0
         db.collection("users")
             .whereEqualTo("email", id)
             .get()
@@ -54,16 +65,15 @@ class CadastroConcluido : AppCompatActivity() {
                     x = if (document.data["status"] == true) {
                         1
                     } else {
-                        2
+                        7
                     }
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
-        return x == 1
+        return x==1
     }
 
     private fun definirNome(id: String) {
-        binding.tvNome.text = ""
         db.collection("users")
             .whereEqualTo("email", id)
             .get()
@@ -75,15 +85,14 @@ class CadastroConcluido : AppCompatActivity() {
             }
     }
 
-    private fun returnId(aid: String): String {
+    private fun returnId(email: String): String {
         var id = ""
         db.collection("users")
-            .whereEqualTo("email", aid)
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    id = document.id.toString()
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                    id = document.reference.id
                 }
             }
         return id

@@ -48,6 +48,7 @@ class TelaCadastro : AppCompatActivity() {
                         cadastrarUsuario(us,binding.etEmail.text.toString() ).addOnCompleteListener { res->
                             if(res.result.status=="SUCCESS"){
                                 Toast.makeText(this, res.result.message, Toast.LENGTH_SHORT).show()
+                                val id = res.result.payload.toString()
                                 val intent = Intent(this, LoginActivity::class.java)
                                 startActivity(intent)
                             } else{
