@@ -31,7 +31,6 @@ class TelaCadastro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = TelaCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        functions = Firebase.functions("southamerica-east1")
         binding.btCadastrar.setOnClickListener {
             if(emptyVerifier(binding.etNomeCompleto, binding.etTelefone, binding.etEmail, binding.etSenha, binding.etEndereco, binding.etMiniCurriculo)) {
 
@@ -88,7 +87,8 @@ class TelaCadastro : AppCompatActivity() {
     //    db.collection("users").document(id).set(data) ou db.collection("users").add(data)
     //}
 
-    private fun cadastrarUsuario(p: user,id: String): Task<String> {
+    private fun cadastrarUsuario(p: user,id: String): Task<CustomResponse> {
+        functions = Firebase.functions("southamerica-east1")
         val data = hashMapOf(
             "nome" to p.name,
             "email" to p.email,
@@ -101,8 +101,8 @@ class TelaCadastro : AppCompatActivity() {
             .getHttpsCallable("setUser")
             .call(data)
            .continueWith { task ->
-                val res = gson.toJson(task.result?.data)
-                res
+               val result = gson.fromJson((task.result?.data as String), CustomResponse::class.java)
+               result
             }
     }
 }
