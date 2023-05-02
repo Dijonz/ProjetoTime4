@@ -1,12 +1,15 @@
 package com.dijonz.projeto_grupo4
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.EditText
 import com.dijonz.projeto_grupo4.databinding.ActivityLoginBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -22,6 +25,15 @@ class LoginActivity : AppCompatActivity() {
                     val intent =  Intent(this, CadastroConcluido::class.java)
                     startActivity(intent)
                 }
+            }.addOnFailureListener { fail->
+                val MensagemErro = when(fail){
+                    is FirebaseAuthInvalidCredentialsException -> "Email ou senha errados!"
+                    else -> "Erro no login"
+                }
+                val snack = Snackbar.make((binding.root),MensagemErro, Snackbar.LENGTH_SHORT)
+                snack.setBackgroundTint(Color.RED)
+                snack.setTextColor(Color.WHITE)
+                snack.show()
             }
         }
         }

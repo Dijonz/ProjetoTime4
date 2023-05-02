@@ -45,7 +45,15 @@ class TelaCadastro : AppCompatActivity() {
                     binding.etSenha.text.toString()
                 ).addOnCompleteListener { usuarioA ->
                     if (usuarioA.isSuccessful) {
-                        cadastrarUsuario(us,binding.etEmail.text.toString() )
+                        cadastrarUsuario(us,binding.etEmail.text.toString() ).addOnCompleteListener { res->
+                            if(res.result.status=="SUCCESS"){
+                                Toast.makeText(this, res.result.message, Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                            } else{
+                                Toast.makeText(this, res.result.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
                         x += 1
                     }
                 }.addOnFailureListener { exception ->
@@ -54,14 +62,12 @@ class TelaCadastro : AppCompatActivity() {
                         is FirebaseAuthUserCollisionException -> "Conta já Cadastrada!"
                         else -> "Erro no cadastro"
                     }
-                    Toast.makeText(this, MensagemErro, Toast.LENGTH_SHORT).show()
+                    val snack1 = Snackbar.make((binding.root),MensagemErro,Snackbar.LENGTH_SHORT)
+                    snack1.setBackgroundTint(Color.RED)
+                    snack1.setTextColor(Color.WHITE)
+                    snack1.show()
                 }
 
-                if (x >= 1) {
-                    Toast.makeText(this, "CADASTRO REALIZADO!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                }
             }
             else{
                 val snack = Snackbar.make((binding.root),"Preencha todos os dados!",Snackbar.LENGTH_SHORT)
@@ -92,7 +98,7 @@ class TelaCadastro : AppCompatActivity() {
         val data = hashMapOf(
             "nome" to p.name,
             "email" to p.email,
-            "numero" to p.number,
+            "telefone" to p.number,
             "curriculo" to p.curriculo,
             "endereco" to p.endereco,
             "status" to false
