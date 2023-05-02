@@ -69,7 +69,7 @@ class CadastroConcluido : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    binding.tvNome.text = document.data["name"].toString()
+                    binding.tvNome.text = document.data["nome"].toString()
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
