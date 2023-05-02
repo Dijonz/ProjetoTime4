@@ -46,7 +46,7 @@ class TelaCadastro : AppCompatActivity() {
                     binding.etSenha.text.toString()
                 ).addOnCompleteListener { usuarioA ->
                     if (usuarioA.isSuccessful) {
-                            cadastrarUsuario(us,binding.etEmail.text.toString() )
+                        cadastrarUsuario(us,binding.etEmail.text.toString() )
                         x += 1
                     }
                 }.addOnFailureListener { exception ->
@@ -85,7 +85,7 @@ class TelaCadastro : AppCompatActivity() {
     //        "curriculo" to p.curriculo,
     //        "status" to false
     //    )
-    //    db.collection("users").document(id).set(data)
+    //    db.collection("users").document(id).set(data) ou db.collection("users").add(data)
     //}
 
     private fun cadastrarUsuario(p: user,id: String): Task<String> {

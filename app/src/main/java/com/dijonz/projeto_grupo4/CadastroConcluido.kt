@@ -17,42 +17,49 @@ class CadastroConcluido : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-        definirNome(useriD)
+    }
 
-        binding.bStatus.setOnClickListener {
-            if(verificaStatus(useriD)) {
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", false)
-                }
-            } else{
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", true)
+        override fun onStart() {
+            super.onStart()
+
+            val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
+            definirNome(useriD)
+
+            binding.bStatus.setOnClickListener {
+                if (verificaStatus(useriD)) {
+                    if (useriD != null) {
+                        db.collection("users")
+                            .document(returnId(useriD))
+                            .update("status", false)
+                    }
+                } else {
+                    if (useriD != null) {
+                        db.collection("users")
+                            .document(returnId(useriD))
+                            .update("status", true)
+                    }
                 }
             }
         }
-    }
 
-    private fun verificaStatus(id: String): Boolean{
+
+
+    private fun verificaStatus(id: String): Boolean {
         var x = 1
         db.collection("users")
             .whereEqualTo("email", id)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    x = if(document.data["status"]==true){
+                    x = if (document.data["status"] == true) {
                         1
-                    } else{
+                    } else {
                         2
                     }
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
-        return x==1
+        return x == 1
     }
 
     private fun definirNome(id: String) {
@@ -69,17 +76,18 @@ class CadastroConcluido : AppCompatActivity() {
     }
 
     private fun returnId(aid: String): String {
-        var id: String = ""
+        var id = ""
         db.collection("users")
-            .whereEqualTo("email",aid)
+            .whereEqualTo("email", aid)
             .get()
-            .addOnSuccessListener {result ->
+            .addOnSuccessListener { result ->
                 for (document in result) {
                     id = document.id.toString()
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
         return id
-
     }
+
 }
+
