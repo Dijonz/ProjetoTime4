@@ -45,26 +45,24 @@ class CadastroConcluido : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-        definirNome(useriD)
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        definirNome(userEmail)
+        val idFirestore = returnId(userEmail)
 
         binding.bStatus.setOnClickListener {
-            if (verificaStatus(useriD)) {
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", false)
-                }
+            if (verificaStatus(userEmail)) {
+                db.collection("users")
+                    .document(idFirestore)
+                    .update("status", false)
+
             } else {
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", true)
-                }
+                db.collection("users")
+                    .document(idFirestore)
+                    .update("status", true)
+
             }
         }
     }
-
 
     private fun verificaStatus(id: String): Boolean {
         var x = 1
@@ -84,10 +82,10 @@ class CadastroConcluido : AppCompatActivity() {
         return x == 1
     }
 
-    private fun definirNome(id: String) {
+    private fun definirNome(email: String) {
         binding.tvNome.text = ""
         db.collection("users")
-            .whereEqualTo("email", id)
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -97,14 +95,14 @@ class CadastroConcluido : AppCompatActivity() {
             }
     }
 
-    private fun returnId(aid: String): String {
+    private fun returnId(email: String): String {
         var id = ""
         db.collection("users")
-            .whereEqualTo("email", aid)
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    id = document.id.toString()
+                    id = document.reference.id
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
