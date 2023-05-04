@@ -2,6 +2,7 @@ package com.dijonz.projeto_grupo4
 
 import android.app.PendingIntent
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,12 @@ import androidx.core.content.edit
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.firebase.messaging.ktx.remoteMessage
 
 class CadastroConcluido : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroConcluidoBinding
@@ -24,58 +28,42 @@ class CadastroConcluido : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            } else {
+                val token = task.result
+                Log.w(TAG, "FCM registration token successful")
+            }
+
+        }
     }
 
-        override fun onStart() {
-            super.onStart()
 
-            val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-            definirNome(useriD)
+    override fun onStart() {
+        super.onStart()
 
-            binding.bStatus.setOnClickListener {
-                if (verificaStatus(useriD)) {
-                    if (useriD != null) {
-                        db.collection("users")
-                            .document(returnId(useriD))
-                            .update("status", false)
-                    }
-                } else {
-                    if (useriD != null) {
-                        db.collection("users")
-                            .document(returnId(useriD))
-                            .update("status", true)
-                    }
+        val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
+        definirNome(useriD)
+
+        binding.bStatus.setOnClickListener {
+            if (verificaStatus(useriD)) {
+                if (useriD != null) {
+                    db.collection("users")
+                        .document(returnId(useriD))
+                        .update("status", false)
+                }
+            } else {
+                if (useriD != null) {
+                    db.collection("users")
+                        .document(returnId(useriD))
+                        .update("status", true)
                 }
             }
         }
-
-    class MyFirebaseMessagingService : FirebaseMessagingService() {
-
-        override fun onMessageReceived(remoteMessage: RemoteMessage) {
-            // Verifique se a mensagem contém dados
-            if (remoteMessage.data.isNotEmpty()) {
-                val data = remoteMessage.data
-
-                val title = data["title"]
-                val body = data["body"]
-                val documentId = data["documentId"]
-
-                val intent = Intent(this, CadastroConcluido::class.java)
-                intent.putExtra("documentId", documentId)
-                val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-                val notificationBuilder = NotificationCompat.Builder(this, "channelId")
-                    .setContentTitle(title)
-                    .setContentText(body)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true)
-
-                val notificationManager = NotificationManagerCompat.from(this)
-                notificationManager.notify(0, notificationBuilder.build())
-            }
-        }
     }
-
 
 
     private fun verificaStatus(id: String): Boolean {
@@ -122,5 +110,12 @@ class CadastroConcluido : AppCompatActivity() {
             }
         return id
     }
-}
 
+    class ReceberNotificacoes : FirebaseMessagingService() {
+
+        override fun onMessageReceived(remoteMessage: RemoteMessage) {
+            super.onMessageReceived(remoteMessage)
+            Log.d(TAG, "FCMFrom: ${remoteMessage.from}")
+        }
+    }
+}
