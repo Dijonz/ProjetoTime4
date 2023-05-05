@@ -16,6 +16,7 @@
         android:fontFamily="@font/montserrat"
         android:layout_below="@+id/ivProfile"
         android:textSize="20.37sp"
+        android:gravity="center"
         android:layout_centerHorizontal="true"/>
     
     <androidx.appcompat.widget.AppCompatImageView
@@ -59,6 +60,12 @@
         android:textAlignment="center"
         android:fontFamily="@font/montserrat"
         android:textSize="16.69dp"
+        />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swl"
         />
 
 
