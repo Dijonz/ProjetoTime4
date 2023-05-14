@@ -8,15 +8,45 @@
     android:orientation="vertical"
     tools:context=".CadastroConcluido">
 
+
+    <View
+        android:id="@+id/rectangle"
+        android:layout_width="488.81dp"
+        android:layout_height="130.35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/rectangle"
+        />
+    
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvNome"
-        android:layout_width="180.7dp"
+        android:id="@+id/tvBemVindo"
+        android:layout_width="260.7dp"
         android:layout_height="29.87dp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/montserrat"
-        android:layout_below="@+id/ivProfile"
+        android:layout_marginLeft="19.01dp"
+        android:layout_marginTop="20dp"
+        android:gravity="top"
         android:textSize="20.37sp"
-        android:layout_centerHorizontal="true"/>
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStatus"
+        android:layout_width="124dp"
+        android:layout_height="19dp"
+        android:layout_toRightOf="@+id/tvBemVindo"
+        android:layout_marginTop="20dp"
+        android:text="Alterar Status"
+        android:textSize="18sp"
+        android:gravity="center_horizontal|top"/>
+
+    <Switch
+        android:id="@+id/swStatus"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStatus"
+        android:layout_alignRight="@+id/tvStatus"/>
+
     
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="135.78dp"
@@ -26,44 +56,6 @@
         android:layout_marginTop="62dp"
         android:src="@drawable/photop"
         android:id="@+id/ivProfile"/>
-    
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="93.69dp"
-        android:layout_height="93.69dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="99.12dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="260.5dp"
-        android:background="@color/teal_700"/>
-
-
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="93.69dp"
-        android:layout_height="93.69dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="99.12dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="410.5dp"
-        android:id="@+id/bStatus"
-        android:src="@drawable/status"
-        android:background="@color/teal_700"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="93.69dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bStatus"
-        android:text="Status"
-        android:layout_alignLeft="@id/bStatus"
-        android:textAlignment="center"
-        android:fontFamily="@font/montserrat"
-        android:textSize="16.69dp"
-        />
-
-
-
-
 
 
 
