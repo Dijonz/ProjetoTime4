@@ -1,29 +1,24 @@
 package com.dijonz.projeto_grupo4
 
-import android.app.PendingIntent
 import android.content.ContentValues
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.edit
+import androidx.appcompat.app.AppCompatActivity
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.ktx.remoteMessage
 
 class CadastroConcluido : AppCompatActivity() {
+    private var id: String = ""
     private lateinit var binding: ActivityCadastroConcluidoBinding
     private val db = Firebase.firestore
+    private lateinit var functions: FirebaseFunctions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
@@ -35,36 +30,44 @@ class CadastroConcluido : AppCompatActivity() {
                 return@addOnCompleteListener
             } else {
                 val token = task.result
-                Log.w(TAG, "FCM registration token successful")
+                Log.w(TAG, "F/home/joao/AndroidStudioProjects/my_appCM registration token successful")
             }
 
         }
     }
-
 
     override fun onStart() {
         super.onStart()
 
-        val useriD = FirebaseAuth.getInstance().currentUser?.email.toString()
-        definirNome(useriD)
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        definirNome(userEmail)
 
-        binding.bStatus.setOnClickListener {
-            if (verificaStatus(useriD)) {
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", false)
+        db.collection("users")
+            .whereEqualTo("email", userEmail)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    id = document.id
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
+            }.addOnFailureListener{
+                Log.d(ContentValues.TAG, it.message.toString())
+            }
+
+        binding.swStatus.setOnClickListener {
+            if (verificaStatus(userEmail)) {
+                db.collection("users")
+                    .document(id)
+                    .update("status", false)
+
             } else {
-                if (useriD != null) {
-                    db.collection("users")
-                        .document(returnId(useriD))
-                        .update("status", true)
-                }
+                db.collection("users")
+                    .document(id)
+                    .update("status", true)
+
             }
         }
     }
-
 
     private fun verificaStatus(id: String): Boolean {
         var x = 1
@@ -84,35 +87,20 @@ class CadastroConcluido : AppCompatActivity() {
         return x == 1
     }
 
-    private fun definirNome(id: String) {
-        binding.tvNome.text = ""
+    private fun definirNome(email: String) {
+        binding.tvBemVindo.text = ""
         db.collection("users")
-            .whereEqualTo("email", id)
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    binding.tvNome.text = document.data["nome"].toString()
+                    binding.tvBemVindo.text = "Olá, " + document.data["nome"].toString()
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
-    }
-
-    private fun returnId(aid: String): String {
-        var id = ""
-        db.collection("users")
-            .whereEqualTo("email", aid)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    id = document.id.toString()
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                }
-            }
-        return id
     }
 
     class ReceberNotificacoes : FirebaseMessagingService() {
-
         override fun onMessageReceived(remoteMessage: RemoteMessage) {
             super.onMessageReceived(remoteMessage)
             Log.d(TAG, "FCMFrom: ${remoteMessage.from}")

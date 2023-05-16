@@ -32,6 +32,7 @@ class TelaCadastro : AppCompatActivity() {
         binding = TelaCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btCadastrar.setOnClickListener {
+
             if(emptyVerifier(binding.etNomeCompleto, binding.etTelefone, binding.etEmail, binding.etSenha, binding.etEndereco, binding.etMiniCurriculo)) {
 
                 val us = user(
