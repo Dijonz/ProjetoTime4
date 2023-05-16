@@ -30,7 +30,7 @@ class CadastroConcluido : AppCompatActivity() {
                 return@addOnCompleteListener
             } else {
                 val token = task.result
-                Log.w(TAG, "FCM registration token successful")
+                Log.w(TAG, "F/home/joao/AndroidStudioProjects/my_appCM registration token successful")
             }
 
         }
