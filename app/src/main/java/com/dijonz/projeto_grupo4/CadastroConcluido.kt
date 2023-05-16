@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -50,24 +51,34 @@ class CadastroConcluido : AppCompatActivity() {
                     id = document.id
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 Log.d(ContentValues.TAG, it.message.toString())
             }
 
-        binding.swStatus.setOnClickListener {
-            if (verificaStatus(userEmail)) {
-                db.collection("users")
-                    .document(id)
-                    .update("status", false)
-
-            } else {
+        binding.swStatus.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                verificaStatus(userEmail)
                 db.collection("users")
                     .document(id)
                     .update("status", true)
+                criarToast("Status Ativado!")
+
+            } else {
+                verificaStatus(userEmail)
+                db.collection("users")
+                    .document(id)
+                    .update("status", false)
+                criarToast("Status Desativado!")
 
             }
         }
     }
+
+    fun criarToast(texto:String){
+        val toast = Toast.makeText(applicationContext,texto,Toast.LENGTH_SHORT)
+        toast.show()
+    }
+
 
     private fun verificaStatus(id: String): Boolean {
         var x = 1
