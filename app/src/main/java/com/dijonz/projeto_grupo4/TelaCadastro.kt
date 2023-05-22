@@ -102,7 +102,8 @@ class TelaCadastro : AppCompatActivity() {
             "telefone" to p.number,
             "curriculo" to p.curriculo,
             "endereco" to p.endereco,
-            "status" to false
+            "status" to false,
+            "uid" to FirebaseAuth.getInstance().currentUser?.uid.toString()
        )
         return functions
             .getHttpsCallable("setUser")

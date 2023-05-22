@@ -45,7 +45,7 @@
         android:layout_width="291.93dp"
         android:backgroundTint="@color/white"
         android:textColor="@color/white"
-        android:text="emaill@gmail.com"
+        android:text="joaop@email.com"
         android:layout_centerHorizontal="true"
         />
 
@@ -71,7 +71,7 @@
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:id="@+id/etSenha"
-        android:text="email123"
+        android:text="123456"
         android:inputType="textPassword"/>
 
     <androidx.appcompat.widget.AppCompatButton

@@ -8,12 +8,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.firebase.messaging.ktx.messaging
 
 class CadastroConcluido : AppCompatActivity() {
     private var id: String = ""
@@ -25,23 +28,17 @@ class CadastroConcluido : AppCompatActivity() {
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@addOnCompleteListener
-            } else {
-                val token = task.result
-                Log.w(TAG, "FCM registration token successful")
-            }
 
-        }
     }
 
     override fun onStart() {
         super.onStart()
 
         val userEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+
         definirNome(userEmail)
+        updateToken()
+
 
         db.collection("users")
             .whereEqualTo("email", userEmail)
@@ -54,6 +51,7 @@ class CadastroConcluido : AppCompatActivity() {
             }.addOnFailureListener {
                 Log.d(ContentValues.TAG, it.message.toString())
             }
+
 
         binding.swStatus.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -69,14 +67,33 @@ class CadastroConcluido : AppCompatActivity() {
                     .document(id)
                     .update("status", false)
                 criarToast("Status Desativado!")
-
             }
         }
     }
 
-    fun criarToast(texto:String){
-        val toast = Toast.makeText(applicationContext,texto,Toast.LENGTH_SHORT)
+    fun criarToast(texto: String) {
+        val toast = Toast.makeText(applicationContext, texto, Toast.LENGTH_SHORT)
         toast.show()
+    }
+
+    private fun updateToken() {
+
+        val fcmToken = Firebase.messaging.token.result.toString()
+        val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+        if (uidUser != null) {
+            FirebaseFirestore.getInstance().collection("users")
+                .whereEqualTo("uid", uidUser)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val user = document.id
+                        FirebaseFirestore.getInstance().collection("users").document(user)
+                            .update("token", fcmToken)
+                    }
+                }
+        }
+
     }
 
 
@@ -109,12 +126,5 @@ class CadastroConcluido : AppCompatActivity() {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
-    }
-
-    class ReceberNotificacoes : FirebaseMessagingService() {
-        override fun onMessageReceived(remoteMessage: RemoteMessage) {
-            super.onMessageReceived(remoteMessage)
-            Log.d(TAG, "FCMFrom: ${remoteMessage.from}")
-        }
     }
 }
