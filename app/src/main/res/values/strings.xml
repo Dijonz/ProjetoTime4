@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Projeto-Grupo4</string>
     <string name="insira_seus_dados_aqui">Insira seus dados aqui </string>
+    <string name="title_activity_tela_aceites">TelaAceites</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

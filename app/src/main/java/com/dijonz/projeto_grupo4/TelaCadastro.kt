@@ -82,17 +82,6 @@ class TelaCadastro : AppCompatActivity() {
         return !(TextUtils.isEmpty(nome.text) || TextUtils.isEmpty(numero.text) ||TextUtils.isEmpty(email.text) ||
                 TextUtils.isEmpty(senha.text) || TextUtils.isEmpty(endereco.text) || TextUtils.isEmpty(curriculo.text))
     }
-    //private fun cadastrarUsuario(p: user,id: String) {
-    //    val data = hashMapOf(
-    //        "name" to p.name,
-    //        "number" to p.number,
-    //        "email" to p.email,
-    //        "endereco" to p.endereco,
-    //        "curriculo" to p.curriculo,
-    //        "status" to false
-    //    )
-    //    db.collection("users").document(id).set(data) ou db.collection("users").add(data)
-    //}
 
     private fun cadastrarUsuario(p: user,id: String): Task<CustomResponse> {
         functions = Firebase.functions("southamerica-east1")

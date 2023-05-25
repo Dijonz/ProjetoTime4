@@ -12,7 +12,7 @@
     <View
         android:id="@+id/rectangle"
         android:layout_width="488.81dp"
-        android:layout_height="130.35dp"
+        android:layout_height="200dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-24dp"
@@ -58,7 +58,8 @@
         android:layout_marginTop="62dp"
         android:tint="@color/black"
         android:src="@drawable/photop"
-        android:id="@+id/ivProfile"/>
+        android:id="@+id/ivProfile"
+        android:visibility="invisible"/>
 
 
     <GridLayout
@@ -73,7 +74,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"
-            android:layout_height="120dp"
+            android:layout_height="10dp"
             android:layout_width="100dp"
             app:cardCornerRadius="15dp"
             android:backgroundTint="@color/teal_700"
@@ -107,6 +108,8 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+
+            android:id="@+id/btEmergencias"
             android:layout_height="120dp"
             android:layout_width="100dp"
             app:cardCornerRadius="15dp"

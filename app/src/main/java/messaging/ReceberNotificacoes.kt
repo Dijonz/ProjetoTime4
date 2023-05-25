@@ -30,20 +30,6 @@ class ReceberNotificacoes : FirebaseMessagingService() {
 
     }
 
-    /*private fun emergencyStatus(): Boolean {
-
-        val uidUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-
-        FirebaseFirestore.getInstance().collection("users")
-            .whereEqualTo("uid", uidUser)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    st = document.data
-                }
-            }
-    }*/
-
     private fun buildNotify(message: String, title: String) {
 
 

@@ -1,21 +1,19 @@
 package com.dijonz.projeto_grupo4
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.messaging.ktx.messaging
 
 class CadastroConcluido : AppCompatActivity() {
@@ -27,6 +25,11 @@ class CadastroConcluido : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btEmergencias.setOnClickListener {
+            val intent = Intent(this, TelaAceites::class.java)
+            startActivity(intent)
+        }
 
 
     }
@@ -59,14 +62,21 @@ class CadastroConcluido : AppCompatActivity() {
                 db.collection("users")
                     .document(id)
                     .update("status", true)
-                criarToast("Status Ativado!")
+                val snack1 = Snackbar.make(
+                    (binding.root), "Você será alertado em futuras emergências", Snackbar.LENGTH_SHORT)
+                snack1.setBackgroundTint(Color.DKGRAY)
+                snack1.setTextColor(Color.WHITE)
+                snack1.show()
 
             } else {
                 verificaStatus(userEmail)
                 db.collection("users")
                     .document(id)
                     .update("status", false)
-                criarToast("Status Desativado!")
+                val snack1 = Snackbar.make((binding.root),"Você NÃO receberá notificações!",Snackbar.LENGTH_SHORT)
+                snack1.setBackgroundTint(Color.DKGRAY)
+                snack1.setTextColor(Color.WHITE)
+                snack1.show()
             }
         }
     }
