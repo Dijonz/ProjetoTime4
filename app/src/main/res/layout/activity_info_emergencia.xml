@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".infoEmergencia">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvH"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="52dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+
+        android:id="@+id/ivFotoPaciente"
+        android:layout_below="@id/tvH"
+        android:layout_width="133dp"
+        android:layout_height="138dp"
+        android:background="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_emergencia"
+        tools:layout_editor_absoluteY="148dp" />
+</RelativeLayout>

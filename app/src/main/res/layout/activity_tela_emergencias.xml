@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaEmergencias">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="20sp"
+        android:layout_marginTop="70dp"
+        android:textAlignment="center"
+        android:text="Lista de emergências" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEmergencias"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:layout_marginTop="125dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</RelativeLayout>

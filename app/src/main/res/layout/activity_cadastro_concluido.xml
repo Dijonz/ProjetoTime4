@@ -66,6 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ivProfile"
+        android:id="@+id/ridLayout"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginLeft="24dp"
@@ -124,6 +125,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:id="@+id/llEmergencias"
                 >
                 <ImageView
                     android:layout_width="80dp"
@@ -282,6 +284,19 @@
         </androidx.cardview.widget.CardView>
 
             </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_below="@id/ridLayout"
+        android:layout_marginTop="40dp"
+        android:layout_alignStart="@id/ridLayout"
+        android:text="Sair/ Realizar login novamente"
+        android:id="@+id/tvLogout"
+        />
 
 
 

@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.dijonz.projeto_grupo4.CadastroConcluido
 import com.dijonz.projeto_grupo4.R
+import com.dijonz.projeto_grupo4.TelaEmergencias
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.Constants.TAG
@@ -47,7 +48,7 @@ class ReceberNotificacoes : FirebaseMessagingService() {
     private fun buildNotify(message: String, title: String) {
 
 
-        val intent = Intent(this, CadastroConcluido::class.java)
+        val intent = Intent(this, TelaEmergencias::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(
