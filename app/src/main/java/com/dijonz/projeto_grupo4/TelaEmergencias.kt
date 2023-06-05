@@ -16,6 +16,7 @@ class TelaEmergencias : AppCompatActivity() {
     private lateinit var binding: ActivityTelaEmergenciasBinding
     private val db = Firebase.firestore
     private lateinit var listaNomesEmergencias: MutableList<String>
+    private lateinit var listaTelefones: MutableList<String>
 
     abstract class ItemDetailsLookup<K>
 
@@ -25,6 +26,7 @@ class TelaEmergencias : AppCompatActivity() {
         setContentView(binding.root)
 
         listaNomesEmergencias = mutableListOf<String>()
+        listaTelefones = mutableListOf<String>()
 
         binding.rvEmergencias.apply {
             layoutManager = LinearLayoutManager(this@TelaEmergencias)
@@ -45,12 +47,11 @@ class TelaEmergencias : AppCompatActivity() {
             .addOnSuccessListener {result ->
 
                     for(document in result){
-                        listaNomesEmergencias.add(document.data["dados"].toString())
-
-
+                        listaNomesEmergencias.add(document.data["nome"].toString())
+                        listaTelefones.add(document.data["telefone"].toString())
 
                 }
-                var adapter = AdapterEmergencia(listaNomesEmergencias)
+                var adapter = AdapterEmergencia(listaNomesEmergencias, listaTelefones)
                 binding.rvEmergencias.adapter = adapter
                 adapter.setOnItemClickListener(object: AdapterEmergencia.onItemClickListener{
                     override fun onItemClick(position: Int) {

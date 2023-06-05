@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class AdapterEmergencia(private val nomes: List<String>): RecyclerView.Adapter<AdapterEmergencia.EmergenciaViewHolder>() {
+class AdapterEmergencia(private val nomes: List<String>, private val telefones: List<String>): RecyclerView.Adapter<AdapterEmergencia.EmergenciaViewHolder>() {
 
     interface onItemClickListener{
         fun onItemClick(position: Int)
@@ -31,7 +31,8 @@ class AdapterEmergencia(private val nomes: List<String>): RecyclerView.Adapter<A
 
     override fun onBindViewHolder(holder: EmergenciaViewHolder, position: Int) {
         val emergencia = nomes[position]
-        holder.emergenciaNome.text = emergencia
+        val temergencia = telefones[position]
+        holder.emergenciaNome.text = "   ${emergencia}: ${temergencia}."
 
 
 
