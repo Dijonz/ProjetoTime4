@@ -42,7 +42,7 @@ class TelaEmergencias : AppCompatActivity() {
     }
 
     private fun buscarDados() {
-        FirebaseFirestore.getInstance().collection("emergencias")
+        FirebaseFirestore.getInstance().collection("emergencias").whereEqualTo("status", false)
             .get()
             .addOnSuccessListener {result ->
 
