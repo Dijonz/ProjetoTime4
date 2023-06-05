@@ -101,7 +101,7 @@ class FotoActivity : AppCompatActivity() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Foto salva!"
-                    storage.reference.child("dentistas/").child("${savedUri}.jpeg") .putFile(savedUri) .addOnCompleteListener{
+                    storage.reference.child("dentistas/").child("${userAtual}.jpeg") .putFile(savedUri) .addOnCompleteListener{
                         val map = HashMap<String, Any>()
                         map["pic"] = savedUri.toString()
                         db.collection("users").document(id).update("foto",map).addOnCompleteListener {
