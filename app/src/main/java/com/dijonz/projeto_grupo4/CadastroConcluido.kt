@@ -36,7 +36,6 @@ class CadastroConcluido : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         val userEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         definirNome(userEmail)
@@ -73,7 +72,7 @@ class CadastroConcluido : AppCompatActivity() {
                 db.collection("users")
                     .document(id)
                     .update("status", false)
-                val snack1 = Snackbar.make((binding.root),"Você NÃO receberá notificações!",Snackbar.LENGTH_SHORT)
+                val snack1 = Snackbar.make((binding.root),"Você NÃO está ativo para novas Emergências!",Snackbar.LENGTH_SHORT)
                 snack1.setBackgroundTint(Color.DKGRAY)
                 snack1.setTextColor(Color.WHITE)
                 snack1.show()
@@ -105,7 +104,6 @@ class CadastroConcluido : AppCompatActivity() {
         }
 
     }
-
 
     private fun verificaStatus(id: String): Boolean {
         var x = 1

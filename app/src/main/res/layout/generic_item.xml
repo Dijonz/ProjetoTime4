@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="10dp"
-            android:text="23/05 18:40"
+            android:text="23/05 ás 18:40"
             android:layout_alignBaseline="@id/rv_nome"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"/>

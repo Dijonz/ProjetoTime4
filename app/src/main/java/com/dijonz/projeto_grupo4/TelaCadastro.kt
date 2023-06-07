@@ -40,7 +40,6 @@ class TelaCadastro : AppCompatActivity() {
                     binding.etTelefone.text.toString(), binding.etEndereco.text.toString(),
                     binding.etMiniCurriculo.text.toString()
                 )
-
                 auth.createUserWithEmailAndPassword(
                     binding.etEmail.text.toString(),
                     binding.etSenha.text.toString()
