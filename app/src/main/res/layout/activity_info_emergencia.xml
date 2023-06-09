@@ -3,44 +3,205 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".infoEmergencia">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvH"
-        android:layout_width="131dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="52dp" />
+        android:theme="@style/ThemeOverlay.AppCompat">
 
-    <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:navigationIcon="@drawable/baseline_home_24"
+            app:title="Emergências"
+            app:titleTextColor="@color/white"
+            />
 
-        android:id="@+id/ivFotoPaciente"
-        android:layout_below="@id/tvH"
-        android:layout_width="133dp"
-        android:layout_height="138dp"
-        android:background="@color/teal_700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_emergencia"
-        tools:layout_editor_absoluteY="148dp" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivFotoPaciente"
-        android:layout_alignStart="@+id/ivFotoPaciente"
-        android:layout_alignEnd="@+id/ivFotoPaciente"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="23dp"
-        android:background="@color/redEmerg"
-        android:id="@+id/bAceitar"
-        android:text="ACEITAR" />
+        android:textSize="32sp"
+        android:text="Emergencia 1"
+        android:layout_marginTop="99dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/black"
+        android:id="@+id/tvtitulo"
+        />
+
+    <GridLayout
+        android:id="@+id/gridFotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:layout_marginTop="43dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvtitulo"
+        android:useDefaultMargins="true">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_column="0"
+            android:layout_row="0" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foto da boca"
+                    android:gravity="center"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_column="1"
+            android:layout_row="0" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foto do paciente"
+                    android:gravity="center"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_column="0"
+            android:layout_row="1" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Documento do\n responsável"
+                    android:gravity="center"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_column="1"
+            android:layout_row="1" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Documento do \nPaciente"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="50dp"
+        android:text="Nome do Paciente"
+        android:gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/gridFotos"
+        android:id="@+id/tvNomePaciente"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="13dp"
+        android:text="Celular do Solicitante"
+        android:gravity="center"
+        android:layout_width="300dp"
+        android:height="35dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvNomePaciente"
+        android:id="@+id/tvCelularPaciente"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:id="@+id/btRecusar"
+        android:layout_below="@+id/tvCelularPaciente"
+        android:layout_alignParentStart="true"
+        android:text="Recusar"
+        android:fontFamily="@font/montserrat"
+        android:backgroundTint="@color/redEmerg"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="65dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:id="@+id/btAceitar"
+        android:layout_below="@id/tvCelularPaciente"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="65dp"
+        android:text="Aceitar"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="40dp"
+        />
+
+
+
+
+
 </RelativeLayout>
