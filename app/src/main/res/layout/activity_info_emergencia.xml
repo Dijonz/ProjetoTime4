@@ -30,4 +30,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_emergencia"
         tools:layout_editor_absoluteY="148dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivFotoPaciente"
+        android:layout_alignStart="@+id/ivFotoPaciente"
+        android:layout_alignEnd="@+id/ivFotoPaciente"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="23dp"
+        android:background="@color/redEmerg"
+        android:id="@+id/bAceitar"
+        android:text="ACEITAR" />
 </RelativeLayout>

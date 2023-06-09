@@ -55,10 +55,10 @@ class TelaEmergencias : AppCompatActivity() {
                 binding.rvEmergencias.adapter = adapter
                 adapter.setOnItemClickListener(object: AdapterEmergencia.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        var nome = listaNomesEmergencias[position]
+                        var telefone = listaTelefones[position]
 
                         val intent = Intent(this@TelaEmergencias,infoEmergencia::class.java)
-                        intent.putExtra("nome-emergencia", nome)
+                        intent.putExtra("telefone-emergencia", telefone)
                         startActivity(intent)
                     }
 
