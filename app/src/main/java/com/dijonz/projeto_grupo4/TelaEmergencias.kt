@@ -35,6 +35,11 @@ class TelaEmergencias : AppCompatActivity() {
         }
         buscarDados()
 
+        binding.toolbar.setOnClickListener {
+            val intent = Intent(this, CadastroConcluido::class.java)
+            startActivity(intent)
+        }
+
 
 
 

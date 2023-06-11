@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.ContextParams
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -20,6 +22,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.messaging.ktx.messaging
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.net.URI
@@ -45,18 +48,16 @@ class CadastroConcluido : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val userEmail = auth.currentUser?.email.toString()
         val userId = auth.currentUser?.uid.toString()
 
 
-
-        definirNome(userEmail)
-
+        definirNome(userId)
+        definirFoto(userId)
         updateToken()
 
 
         db.collection("users")
-            .whereEqualTo("email", userEmail)
+            .whereEqualTo("uid", userId)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -70,14 +71,14 @@ class CadastroConcluido : AppCompatActivity() {
 
         binding.swStatus.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                verificaStatus(userEmail)
+                verificaStatus(userId)
                 db.collection("users")
                     .document(id)
                     .update("status", true)
                 criarToast("Status Ativado!")
 
             } else {
-                verificaStatus(userEmail)
+                verificaStatus(userId)
                 db.collection("users")
                     .document(id)
                     .update("status", false)
@@ -128,10 +129,10 @@ class CadastroConcluido : AppCompatActivity() {
     }
 
 
-    private fun verificaStatus(id: String): Boolean {
+    private fun verificaStatus(uid: String): Boolean {
         var x = 1
         db.collection("users")
-            .whereEqualTo("email", id)
+            .whereEqualTo("uid", uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -146,20 +147,28 @@ class CadastroConcluido : AppCompatActivity() {
         return x == 1
     }
 
-    private fun definirNome(email: String) {
+    private fun definirNome(uid: String) {
         binding.tvBemVindo.text = ""
         db.collection("users")
-            .whereEqualTo("email", email)
+            .whereEqualTo("uid", uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    binding.tvBemVindo.text = "Bom dia, " + document.data["nome"].toString()
+                    binding.tvBemVindo.text = "Olá, " + document.data["nome"].toString()
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                 }
             }
     }
-    private fun definirFoto(id: String){
-        val foto = storage.reference.child("dentistas").child("${id}.jpeg")
+    private fun definirFoto(uid: String){
+        var storageRef = FirebaseStorage.getInstance().reference.child("dentistas/${uid}.jpeg")
+
+        val local = File.createTempFile("tempImage","jpeg")
+        storageRef.getFile(local).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(local.absolutePath)
+            binding.ivProfile.setImageBitmap(bitmap)
+        }.addOnFailureListener{
+            criarToast("ERRO AO CARREGAR A FOTO DE PERFIL")
+        }
 
 
     }

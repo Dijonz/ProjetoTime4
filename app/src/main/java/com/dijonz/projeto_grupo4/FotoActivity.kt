@@ -65,6 +65,7 @@ class FotoActivity : AppCompatActivity() {
             startCamera()
             binding.buttonFoto.setOnClickListener {
                 takePhoto()
+                Toast.makeText(this,"Salavando a foto...", Toast.LENGTH_LONG)
             }
         } else {
             ActivityCompat.requestPermissions(

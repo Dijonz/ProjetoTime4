@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:navigationIcon="@drawable/baseline_home_24"
-            app:title="Emergências"
+            app:title="Informações de emergência"
             app:titleTextColor="@color/white"
             />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="32sp"
-        android:text="Emergencia 1"
+        android:text="Emergencia"
         android:layout_marginTop="99dp"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/montserrat"
@@ -59,6 +59,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="120dp"
                     android:layout_height="120dp"
+                    android:id="@+id/ivPaciente"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView

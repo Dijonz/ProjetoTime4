@@ -1,5 +1,6 @@
 package com.dijonz.projeto_grupo4
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.autofill.FieldClassification
@@ -30,14 +31,6 @@ class infoEmergencia : AppCompatActivity() {
         binding = ActivityInfoEmergenciaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Photo = ""
-
-
-
-
-
-
-
     }
 
     override fun onStart() {
@@ -51,21 +44,31 @@ class infoEmergencia : AppCompatActivity() {
             .addOnSuccessListener {result ->
                 for (document in result) {
                     idPaciente = document.id
+                    binding.tvCelularPaciente.text = document.data["telefone"].toString()
+                    binding.tvNomePaciente.text = document.data["nome"].toString()
                 }
             }
 
         val idDentista = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
 
-        binding.tvH.text=message
 
-        retrieveImage(message)
 
-        binding.bAceitar.setOnClickListener {
+        binding.btAceitar.setOnClickListener {
             db.collection("emergencias").document(idPaciente).update("dentistas",
-                FieldValue.arrayUnion(idDentista)).addOnSuccessListener {
+                FieldValue.arrayUnion(idDentista)).addOnCompleteListener {
                     Toast.makeText(this, "AGUARDANDO A RESPOSTA",Toast.LENGTH_SHORT)
             }
+        }
+
+        binding.toolbar.setOnClickListener {
+            val intent = Intent(this, CadastroConcluido::class.java)
+            startActivity(intent)
+        }
+
+        binding.btRecusar.setOnClickListener {
+            val intent = Intent(this, TelaEmergencias::class.java)
+            startActivity(intent)
         }
 
     }
@@ -76,7 +79,7 @@ class infoEmergencia : AppCompatActivity() {
 
         Glide.with(this)
             .load(urlPhoto)
-            .into(binding.ivFotoPaciente)
+            .into(binding.ivPaciente)
     }
 
     private fun retrieveImage(message: String?){

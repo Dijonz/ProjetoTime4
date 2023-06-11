@@ -292,7 +292,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         android:layout_below="@id/ridLayout"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:layout_alignStart="@id/ridLayout"
         android:text="Sair/ Realizar login novamente"
         android:id="@+id/tvLogout"
