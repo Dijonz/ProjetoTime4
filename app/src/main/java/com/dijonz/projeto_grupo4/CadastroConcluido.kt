@@ -160,7 +160,7 @@ class CadastroConcluido : AppCompatActivity() {
             }
     }
     private fun definirFoto(uid: String){
-        var storageRef = FirebaseStorage.getInstance().reference.child("dentistas/${uid}.jpeg")
+        var storageRef = FirebaseStorage.getInstance().reference.child("dentistas").child("${uid}.jpeg")
 
         val local = File.createTempFile("tempImage","jpeg")
         storageRef.getFile(local).addOnSuccessListener {

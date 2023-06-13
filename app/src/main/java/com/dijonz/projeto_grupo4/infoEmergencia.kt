@@ -1,6 +1,7 @@
 package com.dijonz.projeto_grupo4
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.autofill.FieldClassification
@@ -13,8 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import java.io.File
 import java.lang.reflect.Field
 import java.net.URL
 
@@ -24,6 +27,7 @@ class infoEmergencia : AppCompatActivity() {
     private lateinit var Photo: String
     private val storage = Firebase.storage
     private var idPaciente: String = ""
+    private var uidPaciente: String = ""
 
     private lateinit var binding: ActivityInfoEmergenciaBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +55,7 @@ class infoEmergencia : AppCompatActivity() {
             }
 
         val idDentista = FirebaseAuth.getInstance().currentUser?.uid.toString()
-
+        definirFoto(idPaciente.toString())
 
 
 
@@ -76,24 +80,19 @@ class infoEmergencia : AppCompatActivity() {
 
     }
 
-    private fun setImage(){
-        val urlPhoto= storage.getReferenceFromUrl(
-            Photo)
 
-        Glide.with(this)
-            .load(urlPhoto)
-            .into(binding.ivPaciente)
-    }
+    private fun definirFoto(uid: String){
+        var storageRef = FirebaseStorage.getInstance().reference.child("imagens/${uid}.jpeg")
 
-    private fun retrieveImage(message: String?){
-        db.collection("emergencias")
-            .whereEqualTo("telefone",message)
-            .get()
-            .addOnSuccessListener {result ->
-                for (document in result) {
-                    Photo = document.data["postURL"].toString()
-                }
-            }
+        val local = File.createTempFile("tempImage","jpeg")
+        storageRef.getFile(local).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(local.absolutePath)
+            binding.ivPaciente
+                .setImageBitmap(bitmap)
+        }.addOnFailureListener{
+            Toast.makeText(this,"ERRO AO CARREGAR A FOTO DO PACIENTE", Toast.LENGTH_SHORT)
+        }
+
 
     }
 
