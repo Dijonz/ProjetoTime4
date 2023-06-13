@@ -44,8 +44,9 @@ class infoEmergencia : AppCompatActivity() {
             .addOnSuccessListener {result ->
                 for (document in result) {
                     idPaciente = document.id
+                    binding.tvtitulo.text = document.data["nome"].toString()
                     binding.tvCelularPaciente.text = document.data["telefone"].toString()
-                    binding.tvNomePaciente.text = document.data["nome"].toString()
+                    binding.tvNomePaciente.text = document.data["dados"].toString()
                 }
             }
 
@@ -56,8 +57,9 @@ class infoEmergencia : AppCompatActivity() {
 
         binding.btAceitar.setOnClickListener {
             db.collection("emergencias").document(idPaciente).update("dentistas",
-                FieldValue.arrayUnion(idDentista)).addOnCompleteListener {
-                    Toast.makeText(this, "AGUARDANDO A RESPOSTA",Toast.LENGTH_SHORT)
+                FieldValue.arrayUnion(idDentista)).addOnSuccessListener {
+                    val intent =Intent(this, WaitActivity::class.java)
+                    startActivity(intent)
             }
         }
 

@@ -97,8 +97,8 @@ class CadastroConcluido : AppCompatActivity() {
             startActivity(lntent)
         }
 
-        binding.ivProfile.setOnClickListener {
-            val lntent = Intent(this,FotoActivity::class.java)
+        binding.ivPerfil.setOnClickListener {
+            val lntent = Intent(this,AtualizarDados::class.java)
             startActivity(lntent)
         }
     }

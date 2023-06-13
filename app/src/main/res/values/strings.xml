@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Projeto-Grupo4</string>
     <string name="insira_seus_dados_aqui">Insira seus dados aqui </string>
+    <string name="title_activity_emergencia_aceita">EmergenciaAceita</string>
 </resources>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".AtualizarDados">
+
+
+    <View
+        android:id="@+id/rectangle"
+        android:layout_width="488.81dp"
+        android:layout_height="130.35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/rectangle"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivHome"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/ivProfile"
+        android:background="@drawable/baseline_home_24"
+        android:gravity="center_horizontal|top"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="135.78dp"
+        android:layout_height="135.78dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="62dp"
+        android:src="@drawable/photop"
+        android:tint="@color/black"
+        android:id="@+id/ivProfile"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar foto"
+        android:fontFamily="@font/montserrat"
+        android:textSize="18sp"
+        android:layout_below="@id/ivProfile"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:id="@+id/tvAtualizarFoto"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="181dp"
+        android:layout_height="26dp"
+        android:layout_alignStart="@+id/nome"
+        android:layout_marginTop="25dp"
+        android:id="@+id/tvNome_completo"
+        android:textSize="17sp"
+        android:text="Nome Completo"
+        android:layout_below="@+id/tvAtualizarFoto"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nome"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/black"
+        android:layout_below="@id/tvNome_completo"
+        android:layout_centerHorizontal="true" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="92dp"
+        android:layout_height="26dp"
+        android:id="@+id/tvTelefone"
+        android:textSize="17sp"
+        android:layout_alignStart="@+id/telefone"
+        android:layout_below="@+id/nome"
+        android:text="Telefone"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/telefone"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/black"
+        android:layout_below="@+id/tvTelefone"
+        android:layout_centerHorizontal="true"
+        android:inputType="number" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEndereco"
+        android:textSize="17sp"
+        android:layout_below="@+id/telefone"
+        android:text="Endereço do consultório"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/endereco"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/endereco"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/black"
+        android:layout_below="@+id/tvEndereco"
+        android:layout_centerHorizontal="true"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEmail"
+        android:textSize="17sp"
+        android:layout_below="@+id/endereco"
+        android:text="E-mail"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/email"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="291.93dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/black"
+        android:layout_below="@+id/tvEmail"
+        android:layout_centerHorizontal="true"/>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="350dp"
+        android:layout_height="130dp"
+        android:textSize="18sp"
+        android:id="@+id/curriculo"
+        android:layout_below="@id/email"
+        android:textColor="@color/black"
+        android:background="@color/teal_700"
+        android:layout_centerHorizontal="true"
+        android:maxLength="200"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:gravity="top"
+        android:hint=" Mini-Currículo"
+        android:textColorHint="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btCadastrar"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:textSize="17sp"
+        android:layout_below="@id/curriculo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Atualizar"
+        android:background="@color/teal_700"
+        android:fontFamily="@font/montserrat"/>
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
