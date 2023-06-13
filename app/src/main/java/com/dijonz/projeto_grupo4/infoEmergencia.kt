@@ -59,6 +59,7 @@ class infoEmergencia : AppCompatActivity() {
             db.collection("emergencias").document(idPaciente).update("dentistas",
                 FieldValue.arrayUnion(idDentista)).addOnSuccessListener {
                     val intent =Intent(this, WaitActivity::class.java)
+                    intent.putExtra("uid-socorrista",idPaciente)
                     startActivity(intent)
             }
         }

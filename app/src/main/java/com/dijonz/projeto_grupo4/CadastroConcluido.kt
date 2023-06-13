@@ -50,7 +50,7 @@ class CadastroConcluido : AppCompatActivity() {
 
         val userId = auth.currentUser?.uid.toString()
 
-
+        waitingResponse(userId)
         definirNome(userId)
         definirFoto(userId)
         updateToken()
@@ -172,4 +172,21 @@ class CadastroConcluido : AppCompatActivity() {
 
 
     }
-}
+    private fun waitingResponse(uidDentista:String) {
+            db.collection("emergencias")
+                .whereEqualTo("status", true)
+                .get().addOnSuccessListener {result ->
+                    for(document in result){
+                            if(document.data!!["dentistas"]==uidDentista){
+                                val intent = Intent(this,EmergenciaAceita::class.java).putExtra("uid-socorrista", document.id.toString())
+                                startActivity(intent)
+                            }
+
+                            }
+                        }
+                }
+        }
+
+
+
+
