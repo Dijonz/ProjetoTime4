@@ -33,7 +33,7 @@ class WaitActivity : AppCompatActivity() {
         FirebaseFirestore.getInstance().collection("emergencias").whereEqualTo("postUID",uidSocorrista)
             .addSnapshotListener { value, error ->
                 for (document in value!!.documents){
-                    if (document.data?.get("status") ==true){
+                    if (document.data?.get("status") == true){
                         if (document.data!!["dentistas"]==uidDentista){
                             binding.tvWaiting.text = "Você foi selecionado para a emergência!"
                             Thread.sleep(2_000)

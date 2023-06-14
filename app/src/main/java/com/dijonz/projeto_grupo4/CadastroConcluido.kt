@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -148,7 +149,9 @@ class CadastroConcluido : AppCompatActivity() {
         FirebaseStorage.getInstance().reference.child("dentistas")
             .child("${uid}.jpeg").downloadUrl.addOnSuccessListener { uri ->
                 var foto = uri.toString()
-                binding.ivProfile.load(foto)
+                binding.ivProfile.load(foto){
+                    transformations(CircleCropTransformation())
+                }
             }
     }
 

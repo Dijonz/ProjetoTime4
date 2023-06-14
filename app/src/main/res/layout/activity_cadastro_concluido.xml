@@ -12,7 +12,7 @@
     <View
         android:id="@+id/rectangle"
         android:layout_width="488.81dp"
-        android:layout_height="130.35dp"
+        android:layout_height="165dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-24dp"
@@ -21,73 +21,75 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvBemVindo"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_width="260.7dp"
         android:layout_height="29.87dp"
         android:layout_marginLeft="19.01dp"
         android:layout_marginTop="20dp"
-        android:gravity="top"
+        android:gravity="center"
+        android:text="Bem vindo, Henrique!"
+        android:fontFamily="@font/montserrat"
         android:textSize="20.37sp"
+        android:layout_below="@+id/ivProfile"
+        android:layout_centerHorizontal="true"
         />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        >
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatus"
         android:textColor="@color/white"
         android:layout_width="124dp"
         android:layout_height="19dp"
-        android:layout_toRightOf="@+id/tvBemVindo"
-        android:layout_marginTop="20dp"
         android:text="Alterar Status"
         android:textSize="18sp"
-        android:gravity="center_horizontal|top"/>
-
+        />
     <Switch
         android:id="@+id/swStatus"
-        android:layout_marginTop="8dp"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_below="@+id/tvStatus"
-        android:layout_alignRight="@+id/tvStatus"/>
-
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        />
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="135.78dp"
-        android:layout_height="135.78dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="62dp"
-        android:id="@+id/ivProfile"/>
+        android:id="@+id/ivProfile"
+        android:padding="10dp"
+        />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvEmergencias"
         android:layout_height="120dp"
         android:layout_width="300dp"
         app:cardCornerRadius="15dp"
-        android:id="@+id/cvEmergencias"
         android:backgroundTint="@color/redEmerg"
         app:cardElevation="12dp"
-        android:layout_columnWeight="1"
-        android:layout_rowWeight="1"
-        android:layout_row="0"
-        android:layout_column="1"
         android:layout_marginTop="50dp"
-        android:layout_below="@id/ivProfile"
+        android:layout_below="@id/tvBemVindo"
         android:layout_centerInParent="true"
         >
-
         <LinearLayout
             android:id="@+id/llEmergencias"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            >
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_emergencia"
-
                 />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +101,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:visibility="invisible"
         android:layout_height="120dp"
         android:layout_width="120dp"
         app:cardCornerRadius="15dp"
@@ -124,7 +127,6 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_info"
-
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -137,20 +139,16 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/ivPerfil"
         android:layout_height="120dp"
         android:layout_width="120dp"
         app:cardCornerRadius="15dp"
         android:backgroundTint="@color/teal_700"
         app:cardElevation="12dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/cvEmergencias"
         android:layout_below="@id/cvEmergencias"
-        android:layout_marginLeft="15dp"
-        android:layout_rowWeight="1"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:layout_margin="10dp"
+        android:layout_marginTop="40dp"
         >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -161,8 +159,6 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_profile"
-                android:id="@+id/ivPerfil"
-
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -178,16 +174,11 @@
         android:layout_height="120dp"
         android:layout_width="120dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginTop="150dp"
+        android:layout_alignTop="@+id/ivPerfil"
         android:layout_alignEnd="@id/cvEmergencias"
         android:layout_below="@id/cvEmergencias"
         android:backgroundTint="@color/teal_700"
         app:cardElevation="12dp"
-        android:layout_columnWeight="1"
-        android:layout_rowWeight="1"
-        android:layout_row="2"
-        android:layout_column="1"
-
         >
 
         <LinearLayout
@@ -221,7 +212,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         android:layout_below="@id/cvStatus"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:layout_alignStart="@id/cvStatus"
         android:text="Sair/ Realizar login novamente"
         android:id="@+id/tvLogout"
