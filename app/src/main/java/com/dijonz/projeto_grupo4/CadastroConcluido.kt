@@ -150,6 +150,7 @@ class CadastroConcluido : AppCompatActivity() {
                 var foto = uri.toString()
                 binding.ivProfile.load(foto)
             }
+    }
 
         /*val local = File.createTempFile("tempImage","jpeg")
         storageRef.getFile(local).addOnSuccessListener {
@@ -158,7 +159,7 @@ class CadastroConcluido : AppCompatActivity() {
         }.addOnFailureListener{
             criarToast("ERRO AO CARREGAR A FOTO DE PERFIL")
         }*/
-    }
+
 
     private fun waitingResponse(uidDentista: String) {
         db.collection("emergencias")

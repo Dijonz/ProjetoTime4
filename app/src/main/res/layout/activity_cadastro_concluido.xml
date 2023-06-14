@@ -56,8 +56,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="62dp"
-        android:tint="@color/black"
-        android:src="@drawable/photop"
         android:id="@+id/ivProfile"/>
 
     <androidx.cardview.widget.CardView
