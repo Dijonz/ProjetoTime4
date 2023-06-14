@@ -21,25 +21,23 @@ class CadastroConcluido : AppCompatActivity() {
     private var id: String = ""
     private lateinit var binding: ActivityCadastroConcluidoBinding
     private val db = Firebase.firestore
-    private val storage = Firebase.storage
     private val auth = FirebaseAuth.getInstance()
     private lateinit var functions: FirebaseFunctions
+    val userId = auth.currentUser?.uid.toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val userId = auth.currentUser?.uid.toString()
-
         waitingResponse(userId)
         definirNome(userId)
         definirFoto(userId)
+        verificaStatus(userId)
 
+    }
+    override fun onStart() {
+        super.onStart()
 
         db.collection("users")
             .whereEqualTo("uid", userId)
@@ -56,7 +54,6 @@ class CadastroConcluido : AppCompatActivity() {
 
         binding.swStatus.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                verificaStatus(userId)
                 db.collection("users")
                     .document(id)
                     .update("status", true)
@@ -170,12 +167,9 @@ class CadastroConcluido : AppCompatActivity() {
                 for (document in result) {
                     if (document.data!!["dentistas"] == uidDentista) {
                         val intent = Intent(this, EmergenciaAceita::class.java).putExtra(
-                            "uid-socorrista",
-                            document.id.toString()
-                        )
+                            "uid-socorrista", document.id.toString())
                         startActivity(intent)
                     }
-
                 }
             }
     }

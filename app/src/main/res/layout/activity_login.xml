@@ -45,7 +45,7 @@
         android:layout_width="291.93dp"
         android:backgroundTint="@color/white"
         android:textColor="@color/white"
-        android:text="joaop@email.com"
+        android:text="monstros@monstros.com"
         android:layout_centerHorizontal="true"
         />
 
@@ -71,7 +71,7 @@
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:id="@+id/etSenha"
-        android:text="123456"
+        android:text="abacate"
         android:inputType="textPassword"/>
 
     <androidx.appcompat.widget.AppCompatButton
