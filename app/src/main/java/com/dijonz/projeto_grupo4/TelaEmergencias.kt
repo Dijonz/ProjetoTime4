@@ -25,6 +25,11 @@ class TelaEmergencias : AppCompatActivity() {
         binding = ActivityTelaEmergenciasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+    }
+    override fun onStart() {
+        super.onStart()
+
         listaNomesEmergencias = mutableListOf<String>()
         listaTelefones = mutableListOf<String>()
 
@@ -33,17 +38,7 @@ class TelaEmergencias : AppCompatActivity() {
             binding.rvEmergencias.setHasFixedSize(true)
 
         }
-        buscarDados()
-
-        binding.toolbar.setOnClickListener {
-            val intent = Intent(this, CadastroConcluido::class.java)
-            startActivity(intent)
-        }
-
-
-
-
-
+        buscarDados1()
     }
 
     private fun buscarDados() {
@@ -72,6 +67,33 @@ class TelaEmergencias : AppCompatActivity() {
 
             }.addOnFailureListener {
                 Toast.makeText(this, "DEU ERRO NA BUSCA KKKKKKKKKKKKKKK", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun buscarDados1() {
+        FirebaseFirestore.getInstance().collection("emergencias").whereEqualTo("status", false)
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    for(document in value){
+                        listaNomesEmergencias.add(document.data["nome"].toString())
+                        listaTelefones.add(document.data["telefone"].toString())
+
+                    }
+                    var adapter = AdapterEmergencia(listaNomesEmergencias, listaTelefones)
+                    binding.rvEmergencias.adapter = adapter
+                    adapter.setOnItemClickListener(object: AdapterEmergencia.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            var telefone = listaTelefones[position]
+
+                            val intent = Intent(this@TelaEmergencias,infoEmergencia::class.java)
+                            intent.putExtra("telefone-emergencia", telefone)
+                            startActivity(intent)
+                        }
+
+                    } )
+
+
+                }
             }
     }
 }
