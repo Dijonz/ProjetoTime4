@@ -44,7 +44,6 @@ class CadastroConcluido : AppCompatActivity() {
     }
 
 
-
     override fun onStart() {
         super.onStart()
 
