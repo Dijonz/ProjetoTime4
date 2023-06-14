@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dijonz.projeto_grupo4.databinding.ActivityWaitBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,31 +28,28 @@ class WaitActivity : AppCompatActivity() {
 
         waitingResponse(uidSocorrista,uidDentista)
 
-
-
     }
     fun waitingResponse(uidSocorrista: String?, uidDentista:String) {
-        val docRef = uidSocorrista?.let {
-            db.collection("emergencias")
-                .document(it)
-                .addSnapshotListener { result, error ->
-                    if(result?.data!!["status"] ==true){
-                        if(result?.data!!["dentistas"]==uidDentista){
+        FirebaseFirestore.getInstance().collection("emergencias").whereEqualTo("postUID",uidSocorrista)
+            .addSnapshotListener { value, error ->
+                for (document in value!!.documents){
+                    if (document.data?.get("status") ==true){
+                        if (document.data!!["dentistas"]==uidDentista){
                             binding.tvWaiting.text = "Você foi selecionado para a emergência!"
                             Thread.sleep(2_000)
                             val intent = Intent(this, EmergenciaAceita::class.java)
                             intent.putExtra("uid-socorrista",uidSocorrista)
                             startActivity(intent)
+
                         } else{
                             binding.tvWaiting.text = "Outro dentista foi selecionado para a emergência!"
                             Thread.sleep(2_000)
                             val intent = Intent(this,CadastroConcluido::class.java)
                             startActivity(intent)
-
                         }
                     }
                 }
-        }
+            }
 
 
     }

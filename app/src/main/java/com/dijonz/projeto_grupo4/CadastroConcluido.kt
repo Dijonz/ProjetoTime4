@@ -52,7 +52,6 @@ class CadastroConcluido : AppCompatActivity() {
         waitingResponse(userId)
         definirNome(userId)
         definirFoto(userId)
-        updateToken()
 
 
         db.collection("users")
@@ -74,6 +73,7 @@ class CadastroConcluido : AppCompatActivity() {
                 db.collection("users")
                     .document(id)
                     .update("status", true)
+                updateToken()
                 criarToast("Status Ativado!")
 
             } else {

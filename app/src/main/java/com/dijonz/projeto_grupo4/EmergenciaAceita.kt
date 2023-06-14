@@ -33,8 +33,8 @@ class EmergenciaAceita : AppCompatActivity() {
         binding = ActivityEmergenciaAceitaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*requestLocationPermission()
-        checkLocationPermission()*/
+        requestLocationPermission()
+        checkLocationPermission()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -88,12 +88,9 @@ class EmergenciaAceita : AppCompatActivity() {
                             }
                         }
                     }
-            }
-        /*}else{
+        /*else{
             requestLocationPermission()
-        }
-
-    }
+        }*/
 
     private fun requestLocationPermission() {
         val permission = Manifest.permission.ACCESS_FINE_LOCATION
@@ -106,4 +103,3 @@ class EmergenciaAceita : AppCompatActivity() {
         return result == PackageManager.PERMISSION_GRANTED
     }
 }
-*/
