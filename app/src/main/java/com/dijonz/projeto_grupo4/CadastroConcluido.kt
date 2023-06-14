@@ -1,31 +1,21 @@
 package com.dijonz.projeto_grupo4
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.content.ContextParams
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import coil.load
 import com.dijonz.projeto_grupo4.databinding.ActivityCadastroConcluidoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import com.google.firebase.messaging.ktx.messaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import java.io.File
-import java.net.URI
 
 class CadastroConcluido : AppCompatActivity() {
     private var id: String = ""
@@ -34,15 +24,12 @@ class CadastroConcluido : AppCompatActivity() {
     private val storage = Firebase.storage
     private val auth = FirebaseAuth.getInstance()
     private lateinit var functions: FirebaseFunctions
-    private var foto: URI? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -87,17 +74,17 @@ class CadastroConcluido : AppCompatActivity() {
 
         binding.tvLogout.setOnClickListener {
             auth.signOut()
-            val intentt =  Intent(this, LoginActivity::class.java)
+            val intentt = Intent(this, LoginActivity::class.java)
             startActivity(intentt)
         }
 
         binding.llEmergencias.setOnClickListener {
-            val lntent = Intent(this,TelaEmergencias::class.java)
+            val lntent = Intent(this, TelaEmergencias::class.java)
             startActivity(lntent)
         }
 
         binding.ivPerfil.setOnClickListener {
-            val lntent = Intent(this,AtualizarDados::class.java)
+            val lntent = Intent(this, AtualizarDados::class.java)
             startActivity(lntent)
         }
     }
@@ -124,7 +111,6 @@ class CadastroConcluido : AppCompatActivity() {
                     }
                 }
         }
-
     }
 
 
@@ -158,33 +144,42 @@ class CadastroConcluido : AppCompatActivity() {
                 }
             }
     }
-    private fun definirFoto(uid: String){
-        var storageRef = FirebaseStorage.getInstance().reference.child("dentistas").child("${uid}.jpeg")
 
-        val local = File.createTempFile("tempImage","jpeg")
+    private fun definirFoto(uid: String) {
+
+
+        FirebaseStorage.getInstance().reference.child("dentistas")
+            .child("${uid}.jpeg").downloadUrl.addOnSuccessListener { uri ->
+                var foto = uri.toString()
+                binding.ivProfile.load(foto)
+            }
+
+        /*val local = File.createTempFile("tempImage","jpeg")
         storageRef.getFile(local).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(local.absolutePath)
             binding.ivProfile.setImageBitmap(bitmap)
         }.addOnFailureListener{
             criarToast("ERRO AO CARREGAR A FOTO DE PERFIL")
-        }
-
-
+        }*/
     }
-    private fun waitingResponse(uidDentista:String) {
-            db.collection("emergencias")
-                .whereEqualTo("status", true)
-                .get().addOnSuccessListener {result ->
-                    for(document in result){
-                            if(document.data!!["dentistas"]==uidDentista){
-                                val intent = Intent(this,EmergenciaAceita::class.java).putExtra("uid-socorrista", document.id.toString())
-                                startActivity(intent)
-                            }
 
-                            }
-                        }
+    private fun waitingResponse(uidDentista: String) {
+        db.collection("emergencias")
+            .whereEqualTo("status", true)
+            .get().addOnSuccessListener { result ->
+                for (document in result) {
+                    if (document.data!!["dentistas"] == uidDentista) {
+                        val intent = Intent(this, EmergenciaAceita::class.java).putExtra(
+                            "uid-socorrista",
+                            document.id.toString()
+                        )
+                        startActivity(intent)
+                    }
+
                 }
-        }
+            }
+    }
+}
 
 
 
