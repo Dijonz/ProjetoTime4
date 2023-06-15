@@ -55,10 +55,9 @@ class WaitActivity : AppCompatActivity() {
         listenerRegistration = db.collection("emergencias").document(docId)
             .addSnapshotListener { value: DocumentSnapshot?, error ->
                 if (value != null && value.exists()) {
-                    val status = value.getBoolean("status")
                     val dentistas = value.get("dentistas")
 
-                    if (status == true) {
+                    if (value.get("status") == true) {
                         if (dentistas?.toString() == uidDentista) {
                             binding.tvWaiting.text = "Você foi selecionado para a emergência!"
                             Thread.sleep(1_000)

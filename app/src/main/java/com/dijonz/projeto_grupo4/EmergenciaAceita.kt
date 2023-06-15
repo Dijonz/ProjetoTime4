@@ -42,21 +42,24 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.cvLocalizacao) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        val uidSocorrista = intent.getStringExtra("uid-socorrista")
-        db.collection("emergencias").whereEqualTo("postID",uidSocorrista.toString()).get()
+        val telefoneSocorrista = intent.getStringExtra("telefone-socorrista").toString()
+        val uidSocorrista = intent.getStringExtra("uid-socorrista").toString()
+        print(uidSocorrista)
+        print(telefoneSocorrista)
+        db.collection("emergencias").whereEqualTo("telefone", telefoneSocorrista).whereEqualTo("postID",uidSocorrista).get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     binding.tvNome.text = doc.data["nome"].toString()
                     binding.tvTelefone.text = doc.data["telefone"].toString()
                     docId = doc.id
+                    print(docId)
                 }
             }
 
         binding.cvEmergencias.setOnClickListener {
             db.collection("emergencias").document(docId).update("status","finalizado").addOnSuccessListener {
-                Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
                 Thread.sleep(1_000)
+                Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, CadastroConcluido::class.java)
                 startActivity(intent)
             }
@@ -93,6 +96,23 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
 
     private fun dentistaLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if(location!=null) {
                 val lng = location.longitude
