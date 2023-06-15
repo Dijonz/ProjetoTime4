@@ -1,5 +1,6 @@
 package com.dijonz.projeto_grupo4
 
+
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -87,17 +88,11 @@ class infoEmergencia : AppCompatActivity() {
 
     }
 
-
     private fun definirFoto(uid: String) {
-
-
         FirebaseStorage.getInstance().reference.child("imagens")
             .child("${uid}.jpeg").downloadUrl.addOnSuccessListener { uri ->
                 var foto = uri.toString()
                 binding.ivPaciente.load(foto)
-            }.set
+            }
     }
-
-
-
 }
