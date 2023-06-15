@@ -70,8 +70,6 @@ class TelaEmergencias : AppCompatActivity() {
                     }
 
                 } )
-
-
             }.addOnFailureListener {
                 Toast.makeText(this, "DEU ERRO NA BUSCA KKKKKKKKKKKKKKK", Toast.LENGTH_SHORT).show()
             }
