@@ -140,7 +140,7 @@
         android:textSize="18sp"
         android:id="@+id/etMiniCurriculo"
         android:layout_below="@id/etSenha"
-        android:textColor="@color/cinza"
+        android:textColor="@color/black"
         android:backgroundTint="@color/white"
         android:layout_centerHorizontal="true"
         android:maxLength="200"
@@ -149,7 +149,7 @@
         android:lines="6"
         android:gravity="top"
         android:hint="  Mini-Currículo"
-        android:textColorHint="@color/cinza"
+        android:textColorHint="@color/black"
         android:fontFamily="@font/montserrat"
         android:background="@color/white"
         />
