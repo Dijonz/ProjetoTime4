@@ -1,6 +1,4 @@
 package com.dijonz.projeto_grupo4
-
-
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity

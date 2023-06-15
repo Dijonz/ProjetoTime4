@@ -24,7 +24,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.maps.route.extensions.drawRouteOnMap
 
-class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
+class EmergenciaAceita : AppCompatActivity(){
     private var auth = FirebaseAuth.getInstance()
     private var db = Firebase.firestore
     private lateinit var binding: ActivityEmergenciaAceitaBinding
@@ -39,9 +39,20 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
         binding = ActivityEmergenciaAceitaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.cvLocalizacao) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.cvLocalizacao) as SupportMapFragment
+        mapFragment.getMapAsync{ googleMap ->
+            googleMap?.run{
+                drawRouteOnMap(
+                    getString(R.string.google_api_key),
+                    source = LatLng(-23.587157,-46.6825137),
+                    destination = LatLng(-23.5870167, -46.6690508),
+                    context = applicationContext
+                )
+            }
+        }
+
         val telefoneSocorrista = intent.getStringExtra("telefone-socorrista").toString()
         val uidSocorrista = intent.getStringExtra("uid-socorrista").toString()
         print(uidSocorrista)
@@ -58,16 +69,15 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
 
         binding.cvEmergencias.setOnClickListener {
             db.collection("emergencias").document(docId).update("status","finalizado").addOnSuccessListener {
-                Thread.sleep(1_000)
                 Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, CadastroConcluido::class.java)
                 startActivity(intent)
             }
         }
 
-        if (checkPermissions()) {
+        /*if (checkPermissions()) {
             dentistaLocation()
-            mapFragment.getMapAsync {googleMap ->
+            /*mapFragment.getMapAsync {googleMap ->
                 googleMap.run{
                     drawRouteOnMap(
                         getString(R.string.google_api_key),
@@ -76,22 +86,11 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
                         context = applicationContext
                     )
                 }
-            }
+            }*/
         } else {
             requestPermissions()
-        }
+        }*/
 
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.run{
-            drawRouteOnMap(
-                getString(R.string.google_api_key),
-                source = LatLng(-23.587157,-46.6825137),
-                destination = LatLng(-23.5870167, -46.6690508),
-                context = applicationContext
-            )
-        }
     }
 
     private fun dentistaLocation() {
@@ -117,7 +116,7 @@ class EmergenciaAceita : AppCompatActivity(), OnMapReadyCallback{
             if(location!=null) {
                 val lng = location.longitude
                 val lat = location.latitude
-                userlat = LatLng(lng, lat)
+                userlat = LatLng(lat, lng)
             }
         }
     }
