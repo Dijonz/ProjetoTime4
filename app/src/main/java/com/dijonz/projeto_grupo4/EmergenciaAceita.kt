@@ -53,7 +53,7 @@ class EmergenciaAceita : AppCompatActivity() {
             db.collection("emergencias").document(uidSocorrista.toString())
                 .update("status", "finalizado").addOnSuccessListener {
                     Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
-                    Thread.sleep(2_000)
+                    Thread.sleep(1_000)
                     val intent = Intent(this, CadastroConcluido::class.java)
                     startActivity(intent)
                 }

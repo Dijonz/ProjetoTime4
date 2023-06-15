@@ -8,7 +8,9 @@ import android.service.autofill.FieldClassification
 import android.widget.Toast
 import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
+import coil.load
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dijonz.projeto_grupo4.databinding.ActivityInfoEmergenciaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -48,22 +50,27 @@ class infoEmergencia : AppCompatActivity() {
             .addOnSuccessListener {result ->
                 for (document in result) {
                     idPaciente = document.id
+                    uidPaciente = document.data["postID"].toString()
+
                     binding.tvtitulo.text = document.data["nome"].toString()
                     binding.tvCelularPaciente.text = document.data["telefone"].toString()
                     binding.tvNomePaciente.text = document.data["dados"].toString()
                 }
             }
+        print(uidPaciente)
 
         val idDentista = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        definirFoto(idPaciente.toString())
 
+        definirFoto(uidPaciente)
 
 
         binding.btAceitar.setOnClickListener {
             db.collection("emergencias").document(idPaciente).update("dentistas",
                 FieldValue.arrayUnion(idDentista)).addOnSuccessListener {
                     val intent =Intent(this, WaitActivity::class.java)
-                    intent.putExtra("uid-socorrista",idPaciente)
+                    intent.putExtra("uid-socorrista",uidPaciente)
+                    intent.putExtra("id-socorrista",idPaciente)
+                    intent.putExtra("telefone-socorrista",message)
                     startActivity(intent)
             }
         }
@@ -81,19 +88,16 @@ class infoEmergencia : AppCompatActivity() {
     }
 
 
-    private fun definirFoto(uid: String){
-        var storageRef = FirebaseStorage.getInstance().reference.child("imagens/${uid}.jpeg")
-
-        val local = File.createTempFile("tempImage","jpeg")
-        storageRef.getFile(local).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(local.absolutePath)
-            binding.ivPaciente
-                .setImageBitmap(bitmap)
-        }.addOnFailureListener{
-            Toast.makeText(this,"ERRO AO CARREGAR A FOTO DO PACIENTE", Toast.LENGTH_SHORT)
-        }
+    private fun definirFoto(uid: String) {
 
 
+        FirebaseStorage.getInstance().reference.child("imagens")
+            .child("${uid}.jpeg").downloadUrl.addOnSuccessListener { uri ->
+                var foto = uri.toString()
+                binding.ivPaciente.load(foto)
+            }.set
     }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.dijonz.projeto_grupo4
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dijonz.projeto_grupo4.databinding.ActivityWaitBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,33 +23,49 @@ class WaitActivity : AppCompatActivity() {
         binding = ActivityWaitBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+    }
+    override fun onStart() {
+        super.onStart()
+
         val uidDentista = auth.currentUser?.uid.toString()
 
         val uidSocorrista = intent.getStringExtra("uid-socorrista")
+        val telefoneSocorrista = intent.getStringExtra("telefone-socorrista")
+        val idSocorrista = intent.getStringExtra("id-socorrista")
 
-        waitingResponse(uidSocorrista,uidDentista)
+
+        waitingResponse(uidSocorrista,uidDentista,telefoneSocorrista.toString(),idSocorrista.toString())
+
+
+
 
     }
-    fun waitingResponse(uidSocorrista: String?, uidDentista:String) {
-        FirebaseFirestore.getInstance().collection("emergencias").whereEqualTo("postUID",uidSocorrista)
+
+
+    fun waitingResponse(uidSocorrista: String?, uidDentista:String, telefone: String,docId: String) {
+        db.collection("emergencias").document(docId)
             .addSnapshotListener { value, error ->
-                for (document in value!!.documents){
-                    if (document.data?.get("status") == true){
-                        if (document.data!!["dentistas"]==uidDentista){
+                if (value != null) {
+                    if (value.data?.get("status") ==true){
+                        if (value.data!!["dentistas"]==uidDentista){
                             binding.tvWaiting.text = "Você foi selecionado para a emergência!"
-                            Thread.sleep(2_000)
+                            Thread.sleep(1_000)
                             val intent = Intent(this, EmergenciaAceita::class.java)
                             intent.putExtra("uid-socorrista",uidSocorrista)
+                            intent.putExtra("telefone-socorrista",telefone)
                             startActivity(intent)
 
                         } else{
                             binding.tvWaiting.text = "Outro dentista foi selecionado para a emergência!"
-                            Thread.sleep(2_000)
+                            Thread.sleep(1_000)
                             val intent = Intent(this,CadastroConcluido::class.java)
                             startActivity(intent)
                         }
                     }
                 }
+
             }
 
 

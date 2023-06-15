@@ -31,10 +31,7 @@ class CadastroConcluido : AppCompatActivity() {
         binding = ActivityCadastroConcluidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        waitingResponse(userId)
-        definirNome(userId)
-        definirFoto(userId)
-        verificaStatus(userId)
+
 
     }
     override fun onStart() {
@@ -51,6 +48,10 @@ class CadastroConcluido : AppCompatActivity() {
             }.addOnFailureListener {
                 Log.d(ContentValues.TAG, it.message.toString())
             }
+        waitingResponse(userId)
+        definirNome(userId)
+        definirFoto(userId)
+        verificaStatus(userId)
 
 
         binding.swStatus.setOnCheckedChangeListener { _, isChecked ->

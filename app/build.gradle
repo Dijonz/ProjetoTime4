@@ -56,6 +56,10 @@ dependencies {
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 
 
+    implementation 'io.coil-kt:coil:1.4.0'
+
+
+
     implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.5.0'

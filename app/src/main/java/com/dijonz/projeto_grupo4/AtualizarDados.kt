@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import coil.load
 import com.dijonz.projeto_grupo4.databinding.ActivityAtualizarDadosBinding
 import com.dijonz.projeto_grupo4.databinding.ActivityInfoEmergenciaBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -87,19 +88,16 @@ class AtualizarDados : AppCompatActivity() {
 
     }
 
-    private fun definirFoto(uid: String){
-        var storageRef = FirebaseStorage.getInstance().reference.child("dentistas/${uid}.jpeg")
-
-        val local = File.createTempFile("tempImage","jpeg")
-        storageRef.getFile(local).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(local.absolutePath)
-            binding.ivProfile.setImageBitmap(bitmap)
-        }.addOnFailureListener{
-            criarToast("ERRO AO CARREGAR A FOTO DE PERFIL")
-        }
+    private fun definirFoto(uid: String) {
 
 
+        FirebaseStorage.getInstance().reference.child("dentistas")
+            .child("${uid}.jpeg").downloadUrl.addOnSuccessListener { uri ->
+                var foto = uri.toString()
+                binding.ivProfile.load(foto)
+            }
     }
+
     fun criarToast(texto: String) {
         val toast = Toast.makeText(applicationContext, texto, Toast.LENGTH_SHORT)
         toast.show()

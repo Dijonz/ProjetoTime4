@@ -30,6 +30,11 @@ class TelaEmergencias : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        binding.toolbar.setOnClickListener {
+            val intent = Intent(this,CadastroConcluido::class.java)
+            startActivity(intent)
+        }
+
         listaNomesEmergencias = mutableListOf<String>()
         listaTelefones = mutableListOf<String>()
 
@@ -38,7 +43,9 @@ class TelaEmergencias : AppCompatActivity() {
             binding.rvEmergencias.setHasFixedSize(true)
 
         }
+
         buscarDados1()
+
     }
 
     private fun buscarDados() {
