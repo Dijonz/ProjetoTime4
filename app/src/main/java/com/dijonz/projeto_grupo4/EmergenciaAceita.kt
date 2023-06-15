@@ -23,14 +23,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.maps.route.extensions.drawRouteOnMap
-import com.maps.route.model.GeoPoint
 
-class EmergenciaAceita : AppCompatActivity() {
+class EmergenciaAceita : AppCompatActivity(){
     private var auth = FirebaseAuth.getInstance()
     private var db = Firebase.firestore
     private lateinit var binding: ActivityEmergenciaAceitaBinding
     private var userlat: LatLng = LatLng(00.0, 00.0)
-    private lateinit var destlat: LatLng
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 1001
     private var docId: String = ""
@@ -42,25 +40,16 @@ class EmergenciaAceita : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val mapFragment =
-            supportFragmentManager.findFragmentById(R.id.cvLocalizacao) as SupportMapFragment
-        mapFragment.getMapAsync { googleMap ->
-            googleMap?.run {
-                if (checkPermissions()) {
-                    dentistaLocation()
-                    mapFragment.getMapAsync { googleMap ->
-                        googleMap.run {
-                            drawRouteOnMap(
-                                getString(R.string.google_api_key),
-                                source = userlat,
-                                destination = destlat,
-                                context = applicationContext
-                            )
-                        }
-                    }
-                } else {
-                    requestPermissions()
-                }
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.cvLocalizacao) as SupportMapFragment
+        mapFragment.getMapAsync{ googleMap ->
+            googleMap?.run{
+                drawRouteOnMap(
+                    getString(R.string.google_api_key),
+                    source = LatLng(-23.587157,-46.6825137),
+                    destination = LatLng(-23.5870167, -46.6690508),
+                    context = applicationContext
+                )
             }
         }
 
@@ -68,8 +57,7 @@ class EmergenciaAceita : AppCompatActivity() {
         val uidSocorrista = intent.getStringExtra("uid-socorrista").toString()
         print(uidSocorrista)
         print(telefoneSocorrista)
-        db.collection("emergencias").whereEqualTo("telefone", telefoneSocorrista)
-            .whereEqualTo("postID", uidSocorrista).get()
+        db.collection("emergencias").whereEqualTo("telefone", telefoneSocorrista).whereEqualTo("postID",uidSocorrista).get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     binding.tvNome.text = doc.data["nome"].toString()
@@ -80,20 +68,52 @@ class EmergenciaAceita : AppCompatActivity() {
             }
 
         binding.cvEmergencias.setOnClickListener {
-            db.collection("emergencias").document(docId).update("status", "finalizado")
-                .addOnSuccessListener {
-                    Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, CadastroConcluido::class.java)
-                    startActivity(intent)
-                }
+            db.collection("emergencias").document(docId).update("status","finalizado").addOnSuccessListener {
+                Toast.makeText(this, "EMERGÊNCIA ENCERRADA", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, CadastroConcluido::class.java)
+                startActivity(intent)
+            }
         }
-    }
 
+        /*if (checkPermissions()) {
+            dentistaLocation()
+            /*mapFragment.getMapAsync {googleMap ->
+                googleMap.run{
+                    drawRouteOnMap(
+                        getString(R.string.google_api_key),
+                        source = userlat,
+                        destination = LatLng(-23.5870167, -46.6690508),
+                        context = applicationContext
+                    )
+                }
+            }*/
+        } else {
+            requestPermissions()
+        }*/
+
+    }
 
     private fun dentistaLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
+            if(location!=null) {
                 val lng = location.longitude
                 val lat = location.latitude
                 userlat = LatLng(lat, lng)
