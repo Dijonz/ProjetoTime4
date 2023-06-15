@@ -173,6 +173,7 @@ class CadastroConcluido : AppCompatActivity() {
                     if (document.data!!["dentistas"] == uidDentista) {
                         val intent = Intent(this, EmergenciaAceita::class.java).putExtra(
                             "uid-socorrista", document.id.toString())
+                        intent.putExtra("telefone-socorrista",document.data["telefone"].toString())
                         startActivity(intent)
                     }
                 }
